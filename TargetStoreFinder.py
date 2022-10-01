@@ -1,51 +1,75 @@
-from email import header
-from urllib import response
-from wsgiref import headers
-import pandas as pd
-import pymongo
 import requests
-import lxml
-import csv
 import json
+import csv
 import re
 from bs4 import BeautifulSoup 
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
-from bson.json_util import dumps
 
-url='https://www.walmart.com/store/finder?location=91744&distance=50'
-payload = {'nbrOfStores': 50}
-requestParams = {'geoPoint': {'latitude': 34.0274622, 'longitude': -117.9307584}}
+url = "https://www.walmart.com/orchestra/home/graphql"
+
+payload = json.dumps({
+  "query": "query storeFinderNearbyNodesQuery($input:LocationInput!){nearByNodes(input:$input){nodes{id distance type isGlassEligible displayName name phoneNumber address{addressLineOne addressLineTwo state city postalCode country}capabilities{accessPointId accessPointType}open24Hours operationalHours{day start end closed}nodeDistance{unitOfMeasure value}services{displayName name phone}geoPoint{latitude longitude}}}}",
+  "variables": {
+    "input": {
+      "postalCode": "91744",
+      "nodeTypes": [
+        "STORE"
+      ],
+      "accessTypes": [
+        "PICKUP_INSTORE",
+        "PICKUP_CURBSIDE",
+        "DELIVERY_ADDRESS",
+        "DELIVERY_IN_HOME",
+        "DELIVERY_SPECIAL_EVENT",
+        "PICKUP_SPOKE",
+        "PICKUP_BAKERY",
+        "ACC"
+      ],
+      "radius": 50
+    }
+  }
+})
 
 #headers needed to bypass cookies and being blocked
 headers = {
-'authority': 'www.walmart.com',
-'method': 'GET',
-'path': '/store/finder/electrode/api/stores?singleLineAddr=91744&distance=50',
-'scheme': 'https',
-'accept': '*/*',
-# 'accept-encoding': 'gzip, deflate, br',
-'accept-language': 'en-US,en;q=0.9',
-'content-type': 'application/json',
-'cookie': 'vtc=cXlniSXtbK1T2PM4AXEUlM; _pxhd=d346de2b2ae1e475007464b61c9307a852865d2e483fbb01b0c57e2437b9c2e5:50b59251-389d-11ed-a773-59766874617a; TBV=7; _pxvid=50b59251-389d-11ed-a773-59766874617a; _gcl_au=1.1.80164407.1663648386; ACID=a88c1d44-26d9-4549-bb53-0485034b52ef; hasACID=true; __gads=ID=d96fdaf4a185b978:T=1663648466:S=ALNI_MYS7g4pvpCn4h8RgupIIHiPKMvZaQ; s_pers_2=om_mv3d%3Dsem%3Aadid-22222222254421687451%3Asourceid-%3Awmls-wmtlabs%3Acn-%7C1663911275565%3B+om_mv7d%3Dsem%3Aadid-22222222254421687451%3Asourceid-%3Awmls-wmtlabs%3Acn-%7C1664256875566%3B+om_mv14d%3Dsem%3Aadid-22222222254421687451%3Asourceid-%3Awmls-wmtlabs%3Acn-%7C1664861675567%3B+om_mv30d%3Dsem%3Aadid-22222222254421687451%3Asourceid-%3Awmls-wmtlabs%3Acn-%7C1666244075568%3BuseVTC%3DY%7C1726763630; DL=91744%2C%2C%2Cip%2C91744%2C%2C; t-loc-zip=1663648831386|91744; adblocked=false; dimensionData=1340; locGuestData=eyJpbnRlbnQiOiJQSUNLVVAiLCJpc0V4cGxpY2l0Ijp0cnVlLCJzdG9yZUludGVudCI6IlBJQ0tVUCIsIm1lcmdlRmxhZyI6dHJ1ZSwiaXNEZWZhdWx0ZWQiOmZhbHNlLCJwaWNrdXAiOnsibm9kZUlkIjoiMjI1MSIsInRpbWVzdGFtcCI6MTY2MzgyNTgxOTAwNn0sInBvc3RhbENvZGUiOnsidGltZXN0YW1wIjoxNjYzODIwNTgwNTk2LCJiYXNlIjoiOTE3NDQifSwibXAiOltdLCJ2YWxpZGF0ZUtleSI6InByb2Q6djI6YTg4YzFkNDQtMjZkOS00NTQ5LWJiNTMtMDQ4NTAzNGI1MmVmIn0%3D; TB_Latency_Tracker_100=1; TB_Navigation_Preload_01=1; TB_SFOU-100=; next-day=1664674200|true|false|1664712000|1664649840; location-data=91744%3ALa%20Puente%3ACA%3A%3A8%3A1|2f1%3B%3B1.75%2C1qj%3B%3B2.01%2C2pu%3B%3B3.6%2C4le%3B%3B4.04%2C1ro%3B%3B5.33%2C3oa%3B%3B7.19%2C4cp%3B%3B7.69%2C1up%3B%3B7.97%2C2i8%3B%3B8.05%2C1hx%3B%3B8.59||7|1|1ypm%3B16%3B7%3B7.69%2C1yjj%3B16%3B11%3B9.3%2C1ydp%3B16%3B12%3B12.27%2C1y7j%3B16%3B13%3B13.33%2C1yrb%3B16%3B14%3B13.43; bstc=XguKczWcjIEGBvOCz4nKtQ; mobileweb=0; xpth=x-o-mverified%2Bfalse; xpa=0NcOK|15Gwj|4-FVr|5q86Y|6VwPb|6r4vW|9T1D1|AIud-|BrNRv|CShcr|DAgi2|DuuJN|FHbq-|I9lIr|K2IBM|KVFRn|LTD5Y|MQ6mX|OaWZ8|PTT2d|QB66I|RWwzc|S3bS1|SKXNG|Sf0l7|T-onc|Tk5kr|Twnv9|XA7Ad|XmJLH|ZCMn_|b5MdK|bj38K|buiiw|cL8HI|c_jjc|cfVAR|d93_H|eTJXg|ebwX-|h4oOZ|jP_Rt|lnNfN|mM0Sa|mk3nQ|opnnN|plL2z|qiczr|qouhB|riTZF|rlJqf|tWk_I|u8ztl|uZnYU|uccoC|uj-23|vuySs|w_GEw|xOe2Z|xyycY|zCylr|zFeZ5; exp-ck=0NcOK115Gwj1DAgi21FHbq-1K2IBM1MQ6mX1OaWZ81PTT2d1QB66I1RWwzc3S3bS11Sf0l71Tk5kr1XA7Ad2b5MdK3bj38K1cL8HI1eTJXg2mM0Sa1mk3nQ2plL2z1qouhB2tWk_I1u8ztl1uccoC2vuySs1w_GEw1xyycY1zFeZ51; xpm=1%2B1664649840%2BcXlniSXtbK1T2PM4AXEUlM~%2B0; pxcts=04a3f1c3-41b9-11ed-8d6b-44686d4d5279; ndcache=d; bm_mi=624F0EA07C50A68DDC259787A11F0C67~YAAQpMPOFw357HyDAQAAas/clBHDCUGC7hRP3lf4rbxSbOkNnkQl29SDEceTyM/G8dG1Eag14NY7uJiwJXTX2OphR+Bj14hy5VxZ8ovvdu6kBKe5+MFXxPSbIkCFsc9AZfvt8/d5eIHIfwCBMvArTSa044arK/wqgPnMqKvMQkd7buIUNtB4psGN9dwnbHygqero71lwJCidFbyaBBmx+oYowY9AUmxKID4WrQKUhTkC4L8oKYSE0jHTr7zzxwzUkZcM3xSZuyYjQBnomnOGpLiQirhvCQ4WHUKXv+gLX+yuMlZDqgWtRS8s/FSdLH6Zos2Tz3M5xb7rINEUt2c5CMnd+qsOO00RNQGM/MoxhQNV2Vjn3YNmYg==~1; _clck=1cj93a0|1|f5c|0; ak_bmsc=899AB8920A2B4A60D10F8E794FA66DD3~000000000000000000000000000000~YAAQpMPOFwf+7HyDAQAA+STdlBEVsbO+ATveYjkrfTkVseB7X5IZJIj59xbcjAmfFqBEAfch2VL6ENqplNN0yibo47VCV3exxDIkmOHo5Uk0ZmyEa2nG/4GqxkhUTVdVM24rttrNC7aRyDiPw/Jbbyu5JZILmvoOFI46hyB8k4d9ggoomla4nZ4wsgAsbqm+6dzwwA2juFOxmH4YFn8DJ5nmhbte8YFjRnaGOQpl/af6PvjePzVd/lQE8pr3t4A7zvTvYiboqHXSe6aCJfWFP2Xkja73QUWGw/AUItxKf5E9lywi63AL/NgNoP3AvCo+PipSz4Xc3IABCzZSb328A0CaNhqc8dYBpLK1unc9+ux27W147d+hkGbzlg4/T7bpHn043Tkvf7M8K4bS2pUaoiXEvA195o3lB8g27svQ0yJFFyPrWmA+XWmJX4DhB7qIb4EuG0D4mK2nzFf4A9kebkBV5Vfa2pqDYRD05+6hDBcWe6E/oKlV3gSwagJdceqmVMzXYTTEfQwf+ZQ0MLAeYHAZv0vYC9+p93hUZZAlfLqBq27uWepn2LeSTQ==; __gpi=UID=000008c5a1c7c764:T=1663648466:RT=1664649907:S=ALNI_MaQhpWP0d_Kx3wADSkKTCUt2ZGyaQ; com.wm.reflector="reflectorid:0000000000000000000000@lastupd:1664649948660@firstcreate:1664434158361"; xptwg=4141775420:18E222D6564D220:40339A7:DA0C89F7:6C432D5C:79ED2F0B:; xptwj=cq:d64e65645b10eb6b5159:kkDGXibayLYvhnkwBitTfkX7DEuzVLp2aWscYJNUJBOoDUHEiV3rbhBBpekaqzN87LQlp6T7wJ6sYekfuWtwuGran2nN7uGVRkw0zC983jF4i8Nt1hVA3eIAprs=; TS012768cf=01883d697b9610c0267f692c57b54a91c0ff467251a2b08bac3802599f16078486cbf821dcc70fc234c4f5707badf8fbb22d8189ba; TS01a90220=01883d697b9610c0267f692c57b54a91c0ff467251a2b08bac3802599f16078486cbf821dcc70fc234c4f5707badf8fbb22d8189ba; TS2a5e0c5c027=08d1b43516ab20001eaba12bb6e47673eada4ba31e4d62a0ff35b923b0af389c680d7e4c20d398ce08d4af705d113000c201f8808d3df514ced4c1e8177c52e02f9e3219a8a55c7689538a89ed694292176598cac181d6c35a16153b2dbc34c9; bm_sv=A47C778AB81DA0B00F6F071756E4F139~YAAQpMPOFwIW7XyDAQAAjXPelBExgFDB3X8shdoR+Sj44z/Qks0VZkneWS9ORTohF7gMDvVmDgDIjoLaJzV8RbxY75mKdT+F5JW/lrMuZ25SyqhVrfkq+0AQ5GBhrDUwjy2ifdd10JFgJ9hoJe+bT6aiTkXT/6BQYwWqRzAJnHkMxcHkV74p+L6VTTpaO2Mc1f9YXWwR3mUfVfCYOdqLUpYKcQv6Im4x74mnI002BOeiyCfYw+bfLqd2Mreotaotrg==~1; _uetsid=0526585041b911edbe94fb65a8f1fb7e; _uetvid=5258dcf0389d11edb337a5f3edef643a; _clsk=sq2u0l|1664649950659|5|0|f.clarity.ms/collect; _px3=a614ba0ab818897e8903bc7ba909c6c989e7a1dd482c206fd36b40b159b8cbca:r+LptSVyW+l4dPL8TG5HyH8iA0lNrLb8WatvAiv53zphpP4smBalw55cAl7BVNlhbklDQEzdbclxgk5+zAUrUw==:1000:3eiUfos4HjfRe/2e6bvu5RH3vXX9SqagEJc7HkJjJSZe7edOBp/djWAtJbByOKbWm2WxDWU0BSaTuB0Xnj2da9yGg+CWxExSfk/tbX86rcNnfmUq7TqjqUn3FOVbXHdTj808vqidekMmDwHNUlhJCLE5wgVY8gbuOgemvaiqD0lsTOL6cmpny8Ev4oalUuHlDymKl5Q0yJYLWlkEJKwC0w==',
-'referer': 'https://www.walmart.com/store/finder?location=91744&distance=50',
-'sec-ch-ua': '"Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"',
-'sec-ch-ua-mobile': '?0',
-'sec-ch-ua-platform': '"Linux"',
-'sec-fetch-dest': 'empty',
-'sec-fetch-mode': 'cors',
-'sec-fetch-site': 'same-origin',
-'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
-'wm_qos.correlation_id': '814453e1-a905-40da-b8f4-613553706051',
+  'authority': 'www.walmart.com',
+  'accept': 'application/json',
+  'accept-language': 'en-US,en;q=0.9',
+  'content-type': 'application/json',
+  'cookie': 'QuantumMetricUserID=bb70e4604030c4332510724b3d0fff8a; vtc=RgOWoCw-602xtfdRFHcFc4; bstc=RgOWoCw-602xtfdRFHcFc4; xpa=0NcOK|15Gwj|5_9FA|5ccTK|7LSfW|9e61f|AIud-|D2JLq|DuuJN|H9VcM|I9lIr|JYP3v|MJuLK|N8QWO|NBAls|OaWZ8|Qx0BC|Rgq78|S-Z8m|S3bS1|SPL_W|SmVSa|T-onc|Twnv9|V-nnO|VzzTL|XcRMg|XmJLH|Y9_n0|bj38K|ccDGr|d93_H|eTJXg|fXIW_|m6OsI|mM0Sa|opnnN|riTZF|s4Kzt|sQWPT|sbguX|szDEg|tWk_I|tsxuA|tzVuW|u8ztl|uccoC|uj-23|uru_L|wX6Ex|wexEY|x_hKt|xyycY|zCylr|zFeZ5|zhSyo; exp-ck=0NcOK115Gwj15_9FA27LSfW19e61f1D2JLq1JYP3v2MJuLK1NBAls1OaWZ81Qx0BC1Rgq781S-Z8m1S3bS11SmVSa1V-nnO1VzzTL3XcRMg3bj38K1ccDGr1eTJXg2m6OsI1mM0Sa1s4Kzt1sbguX1szDEg1tWk_I1u8ztl1uccoC2wexEY4x_hKt1xyycY1zFeZ51; auth=MTAyOTYyMDE4s1IcxbiuZBOYfMw%2BJBnMXLiIpMdiyvqRHqk1eyM8tL1V7qIP1yO%2BjynuVIALJDnuaDlHjhBnW44oLOp79puT%2FmKhSMEnSJHjg9fDpHgRc%2FZNqa8ifFl8hthPBla%2BlRCc767wuZloTfhm7Wk2Kcjygi5k0VvBM%2FJjwcKWWhCnBS9C699Z9sWpnpMNQKz%2BtNJ7wSkTy7fSX9t8kxPSo5mc6AndG31iONUJT80ft8%2BD1F4UMk70P8glgOEpLOprhDfMM%2FFHGZ2dCNmxWrdkwqEKriRfksaLmPBsejyAY9U4Hnx04tmf7HLyxOhjXnh5eUNKQpRRL0GhWOWqWRJScUqmtVUUYiBV89OSmqbI1CZKMyw8fvjmv7%2BXkAndPM6uDQ5FtHSA%2BGqjd0ktX0ovfExbI5E5WBBdZBCyKnCQAR7o6eg%3D; ACID=77bff0ac-1fd3-4a3f-81ba-7170e5412c85; hasACID=true; assortmentStoreId=2251; hasLocData=1; TB_Latency_Tracker_100=1; TB_Navigation_Preload_01=1; TB_SFOU-100=; mobileweb=0; xpth=x-o-mverified%2Bfalse; _pxhd=ee15809879106935c0e82876c10b319cd3bcf1df5b15e4726a43cc50a6380c14:ac44aa5f-41d1-11ed-9720-66675a737546; bm_mi=3D2BB5421BEB53060A7038B44AB3561B~YAAQn8POF+YCp4KDAQAA22J+lRHwDOEmRk/gr3GXoB2JV8NxHiFATNXI3nGis5xewXoOsm/yJaNpd9RoJdJ2h17ME4tsFfnJd8Eu2LXA+uhcPtATUAkDHdqU0eEI1i9yS2WaIKxheCXmw96F75wDSxZt9NdV0pJWPYH13cifnXSrpJTBoP+G2lsdMm4qn6YqfTwSIJqRuuFEE79RJuIcHGehdH8EIEpgtp+3UXe/ooFleT9cJ3uC0f6zveg+FIzNo5W05olOJS4krHn50yNT/ebwPJLg0+sUR9/ePjN0x0LJBUajCT5aGuq0EpDgmlb03ua4VdDiWJWqlFE=~1; locDataV3=eyJpc0RlZmF1bHRlZCI6ZmFsc2UsImlzRXhwbGljaXQiOmZhbHNlLCJpbnRlbnQiOiJTSElQUElORyIsInBpY2t1cCI6W3siYnVJZCI6IjAiLCJub2RlSWQiOiIyMjUxIiwiZGlzcGxheU5hbWUiOiJDaXR5IE9mIEluZHVzdHJ5IFN1cGVyY2VudGVyIiwibm9kZVR5cGUiOiJTVE9SRSIsImFkZHJlc3MiOnsicG9zdGFsQ29kZSI6IjkxNzQ1IiwiYWRkcmVzc0xpbmUxIjoiMTcxNTAgR2FsZSBBdmUiLCJjaXR5IjoiQ2l0eSBPZiBJbmR1c3RyeSIsInN0YXRlIjoiQ0EiLCJjb3VudHJ5IjoiVVMiLCJwb3N0YWxDb2RlOSI6IjkxNzQ1LTE4MDkifSwiZ2VvUG9pbnQiOnsibGF0aXR1ZGUiOjMzLjk5ODQzNywibG9uZ2l0dWRlIjotMTE3LjkzMjM3Nn0sImlzR2xhc3NFbmFibGVkIjp0cnVlLCJzdG9yZUZlZVRpZXIiOiJCIiwic2NoZWR1bGVkRW5hYmxlZCI6dHJ1ZSwidW5TY2hlZHVsZWRFbmFibGVkIjp0cnVlLCJodWJOb2RlSWQiOiIyMjUxIiwic3RvcmVIcnMiOiIwNjowMC0yMzowMCIsInN1cHBvcnRlZEFjY2Vzc1R5cGVzIjpbIlBJQ0tVUF9TUEVDSUFMX0VWRU5UIiwiUElDS1VQX0JBS0VSWSIsIlBJQ0tVUF9JTlNUT1JFIiwiUElDS1VQX0NVUkJTSURFIl19XSwic2hpcHBpbmdBZGRyZXNzIjp7ImxhdGl0dWRlIjozNC4wMzA0LCJsb25naXR1ZGUiOi0xMTcuOTQwMywicG9zdGFsQ29kZSI6IjkxNzQ0IiwiY2l0eSI6IkxhIFB1ZW50ZSIsInN0YXRlIjoiQ0EiLCJjb3VudHJ5Q29kZSI6IlVTQSIsImdpZnRBZGRyZXNzIjpmYWxzZX0sImFzc29ydG1lbnQiOnsibm9kZUlkIjoiMjI1MSIsImRpc3BsYXlOYW1lIjoiQ2l0eSBPZiBJbmR1c3RyeSBTdXBlcmNlbnRlciIsImFjY2Vzc1BvaW50cyI6bnVsbCwic3VwcG9ydGVkQWNjZXNzVHlwZXMiOltdLCJpbnRlbnQiOiJQSUNLVVAiLCJzY2hlZHVsZUVuYWJsZWQiOmZhbHNlfSwiZGVsaXZlcnkiOnsiYnVJZCI6IjAiLCJub2RlSWQiOiIyMjUxIiwiZGlzcGxheU5hbWUiOiJDaXR5IE9mIEluZHVzdHJ5IFN1cGVyY2VudGVyIiwibm9kZVR5cGUiOiJTVE9SRSIsImFkZHJlc3MiOnsicG9zdGFsQ29kZSI6IjkxNzQ1IiwiYWRkcmVzc0xpbmUxIjoiMTcxNTAgR2FsZSBBdmUiLCJjaXR5IjoiQ2l0eSBPZiBJbmR1c3RyeSIsInN0YXRlIjoiQ0EiLCJjb3VudHJ5IjoiVVMiLCJwb3N0YWxDb2RlOSI6IjkxNzQ1LTE4MDkifSwiZ2VvUG9pbnQiOnsibGF0aXR1ZGUiOjMzLjk5ODQzNywibG9uZ2l0dWRlIjotMTE3LjkzMjM3Nn0sImlzR2xhc3NFbmFibGVkIjp0cnVlLCJzdG9yZUZlZVRpZXIiOiJCIiwic2NoZWR1bGVkRW5hYmxlZCI6dHJ1ZSwidW5TY2hlZHVsZWRFbmFibGVkIjp0cnVlLCJhY2Nlc3NQb2ludHMiOlt7ImFjY2Vzc1R5cGUiOiJERUxJVkVSWV9BRERSRVNTIn1dLCJodWJOb2RlSWQiOiIyMjUxIiwiaXNFeHByZXNzRGVsaXZlcnlPbmx5IjpmYWxzZSwic3VwcG9ydGVkQWNjZXNzVHlwZXMiOlsiREVMSVZFUllfQUREUkVTUyJdfSwiaW5zdG9yZSI6ZmFsc2UsInJlZnJlc2hBdCI6MTY2NDY4MjAzMjk5NywidmFsaWRhdGVLZXkiOiJwcm9kOnYyOjc3YmZmMGFjLTFmZDMtNGEzZi04MWJhLTcxNzBlNTQxMmM4NSJ9; locGuestData=eyJpbnRlbnQiOiJTSElQUElORyIsImlzRXhwbGljaXQiOmZhbHNlLCJzdG9yZUludGVudCI6IlBJQ0tVUCIsIm1lcmdlRmxhZyI6ZmFsc2UsImlzRGVmYXVsdGVkIjpmYWxzZSwic3RvcmVTZWxlY3Rpb25UeXBlIjoiTFNfU0VMRUNURUQiLCJwaWNrdXAiOnsibm9kZUlkIjoiMjI1MSIsInRpbWVzdGFtcCI6MTY2NDY2MDQzMjk5NH0sInBvc3RhbENvZGUiOnsidGltZXN0YW1wIjoxNjY0NjYwNDMyOTk0LCJiYXNlIjoiOTE3NDQifSwibXAiOltdLCJ2YWxpZGF0ZUtleSI6InByb2Q6djI6NzdiZmYwYWMtMWZkMy00YTNmLTgxYmEtNzE3MGU1NDEyYzg1In0%3D; xptc=assortmentStoreId%2B2251; _astc=68e12af5a2485f61a9640813d9494eb6; pxcts=ad8657d1-41d1-11ed-8e62-4e496d557677; _pxvid=ac44aa5f-41d1-11ed-9720-66675a737546; TBV=7; _px3=bf7def05c09792d2da5d62d5d6b994ed27d4ae901c5d58795dd757d21c9484ab:OXSfmthNeLqa15AncTfXsCce6GnoFX7RGUshw7O9Z1g8pA7pB7mF1+16opQVHz6xYWGSZBBDbszRUxjOdoxWRg==:1000:83SA5rGKJOc9TL07KQA0rXgdlqwT32jI6notML0vNZIOHQ2pPXqomNSGJP+mNbC1WptTt9KTFukHZRc2VnyQquI6fZJHfDmE0mVhbkOyehbaH+H9Z/VZMK48Zk4Y3VlS4Q/urYmrLoWs/247QWhqmQFlZFmZ03VGZeYhPdPl/0UL5qMu5Lq7Dt6vHXd1mBZvw/MsR8I9V3jZMr8ZCHhWbg==; ak_bmsc=F9ED04FEA1711D31EB91CA2E34FB8A1B~000000000000000000000000000000~YAAQn8POF4ADp4KDAQAAQHN+lRGFrPwn5mkJpK06PCkLFFaC4Kue52FJLU8MfU9nOgA15nLmkQqZAB+RNIfx1v+xNZqgCjgbw/YgcilFRqSUWo8Vwn89HvN397Bv0OizSKEOvVJqurlfEvo2a0WP5reXrOBlo3KQB7XUtjr//6SmeEeg3F0v1cZ1vLHHEChOCpl1XjZ3UN8PZHKdUOMzII4Cyw0mtVyIWIPBYYI7gd4MZBKj0EePQDqwo8FkLDUkwfME02qFMwE6/GC3Lnnz/g4yZg1MaT/wDL/KD7VWqlbZGxfFW1dpGcNze1P8S0zXgsTl3Yy04vB3Buokvqj+/JHMCpQ2/KzkVXG2Vd7zJQL7kGS7Jkog54JIhOh3hlJmLjbpf1bD8RYqLKKetPGT1zYJ+4Akj9GMEkBDllsaVV8F9fcVw9V/LlI=; xpm=0%2B1664660510%2BRgOWoCw-602xtfdRFHcFc4~%2B0; xptwj=cq:8b3db665c558250cdb54:sWuyofl5reQuPw7EwLoSDyexTobjFbTFtyOOP5WBzeBkWzaGxj8LWtBRuqeDa9JdhKraofoZB7OZ6OHDqHE15avx/K550eVAnIpy+9qXMZu/NUmRUw==; xptwg=330554976:1C71EEB8FAEBD90:4964032:CE94FAB:32D85087:787F6CB5:; TS012768cf=019c4a6c416fe3d39202a9a9b88b479842fef3c14cb190c74cc1079339d6e1c698bd4e19f2ef129c4197c498f6a454a2f00e6b3d1b; TS01a90220=019c4a6c416fe3d39202a9a9b88b479842fef3c14cb190c74cc1079339d6e1c698bd4e19f2ef129c4197c498f6a454a2f00e6b3d1b; TS2a5e0c5c027=083ee07ae4ab2000b17c67228bf5e5627549b5c42f463c0d8575f88bc440e829c0d6c49f88f4cf6d083434bd72113000baaa2bf3afdfd80fce04134076b1be8b299bc5d9d60cb5409e336c6ff32a331243e69932c719a00db77187e4fca2b47d; bm_sv=7CE60C60F5D51B3DFDDD867C1350662F~YAAQpcPOF8o55muDAQAAcJh/lRGQzdreDrP/152vQ+JaIzhVO4hKeqpqp5Gd+jSEuX/sFW7NFPqPwnjxPZhN5YEdKDICvNlFSxteii4MnEr8LEGcqPYlEyCd7wTHl3cY7DURY31+dV9sy1dha+60zjfChxUwbTr2n3aSbbJQ+Muu9vYKr0+J7iIZrI1g8demsK21VLrqa0uMBal+uF+UjbpoBSiItKFpZ4hMv15XAjmMI6zeVGzt0wHbSsHWIZjz1w==~1; TB_SFOU-100=; TS01a90220=010715e2f7d34bffcbaa14d186af13929ac693ba984659206365c9bafedd4e661f323a845c642b9bfeb895ca5a597631bc6e43fa93; bm_sv=7CE60C60F5D51B3DFDDD867C1350662F~YAAQl8POFy8gTYmDAQAAYH6HlRGHlkUvV78nkWCoctBphhiHn7lAbkusvW5e+6NQH73fYvBQ+H+8Ag0/4wfrcLTLAoPrKUE14RI/8zR8OHhmju5tE04CFUXhKJZXR+MpQCvXlK2o8vsy80Uyj6E8JOZH2aI0uN4bQLNny/P6qBSboWgfX/0Q0YiWX1j3nSSR6S/+AkZ27WrV9cVklD5sUGL63COBedC9ZF3IJtQ+O7XFw0t/OmY06K6OQdk4jG22Tg==~1; bstc=RgOWoCw-602xtfdRFHcFc4; exp-ck=0NcOK115Gwj15_9FA27LSfW19e61f1D2JLq1JYP3v2MJuLK1NBAls1OaWZ81Qx0BC1Rgq781S-Z8m1S3bS11SmVSa1V-nnO1VzzTL3XcRMg3bj38K1ccDGr1eTJXg2m6OsI1mM0Sa1s4Kzt1sbguX1szDEg1tWk_I1u8ztl1uccoC2wexEY4x_hKt1xyycY1zFeZ51; mobileweb=0; vtc=RgOWoCw-602xtfdRFHcFc4; xpa=0NcOK|15Gwj|5_9FA|5ccTK|7LSfW|9e61f|AIud-|D2JLq|DuuJN|H9VcM|I9lIr|JYP3v|MJuLK|N8QWO|NBAls|OaWZ8|Qx0BC|Rgq78|S-Z8m|S3bS1|SPL_W|SmVSa|T-onc|Twnv9|V-nnO|VzzTL|XcRMg|XmJLH|Y9_n0|bj38K|ccDGr|d93_H|eTJXg|fXIW_|m6OsI|mM0Sa|opnnN|riTZF|s4Kzt|sQWPT|sbguX|szDEg|tWk_I|tsxuA|tzVuW|u8ztl|uccoC|uj-23|uru_L|wX6Ex|wexEY|x_hKt|xyycY|zCylr|zFeZ5|zhSyo; xpm=0%2B1664661028%2BRgOWoCw-602xtfdRFHcFc4~%2B0; xptc=assortmentStoreId%2B2251; xpth=x-o-mverified%2Bfalse; xptwg=3840698849:1C7F33EB8DF1CA0:49863EB:7F0BFE5C:90641201:C554EFB9:; TS012768cf=010715e2f7d34bffcbaa14d186af13929ac693ba984659206365c9bafedd4e661f323a845c642b9bfeb895ca5a597631bc6e43fa93; TS2a5e0c5c027=08981fe414ab200022e33a2054393452b4cda392be77dc56b39e4995ea63d1b2309dea2f0b20900608e9b5cc0e11300042b7c73e9acf34625166d82707bdff53f2e4ac390655b2992e14479ef97398b21e5d4477a0faae4f81ec81263da86ec6',
+  'device_profile_ref_id': 'T0CyA4hmU3DnxKuTI_HRR5_tuDVoL4MIwEQc',
+  'origin': 'https://www.walmart.com',
+  'referer': 'https://www.walmart.com/store-finder?location=91744',
+  'sec-ch-ua': '"Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"',
+  'sec-ch-ua-mobile': '?0',
+  'sec-ch-ua-platform': '"Windows"',
+  'sec-fetch-dest': 'empty',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-site': 'same-origin',
+  'traceparent': '00-f38d35c10cfe4c1be00964b9be6f2236-fdd063642f01f843-00',
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+  'wm_mp': 'true',
+  'wm_page_url': 'https://www.walmart.com/store-finder?location=91744',
+  'wm_qos.correlation_id': 'pKjQt0FY1bvLdg3urY7vi6toDrn91EaK3Zq9',
+  'x-apollo-operation-name': 'storeFinderNearbyNodesQuery',
+  'x-enable-server-timing': '1',
+  'x-latency-trace': '1',
+  'x-o-bu': 'WALMART-US',
+  'x-o-ccm': 'server',
+  'x-o-correlation-id': 'pKjQt0FY1bvLdg3urY7vi6toDrn91EaK3Zq9',
+  'x-o-gql-query': 'query storeFinderNearbyNodesQuery',
+  'x-o-mart': 'B2C',
+  'x-o-platform': 'rweb',
+  'x-o-platform-version': 'main-1.23.0-4561b3',
+  'x-o-segment': 'oaoh'
 }
 
-response = requests.request("GET", url,headers=headers, data=payload, params=requestParams)
-# print(response.text.encode('utf8'))
+#Request store list from url 
+response = requests.request("POST", url, headers=headers, data=payload)
+# print(response.text)
 
-# Use BeautifulSoup to nicely prase response text 
-soup = BeautifulSoup(response.text)
-stores = soup.prettify()
+#Set data to dictionary format
+stores = json.loads(response.text)
 print(stores)
-# print(type(stores))
 
+for store in stores['data']:
+  print(store['address'])
