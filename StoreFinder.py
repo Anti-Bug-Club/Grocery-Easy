@@ -69,5 +69,14 @@ response = requests.request("POST", url, headers=headers, data=payload)
 
 #Set data to dictionary format
 stores = json.loads(response.text)
-print(stores)
 
+
+closestStoresID = {}
+closestStoresInfo = {}
+for num,location in enumerate(stores['data']['nearByNodes']['nodes']):
+  closestStoresID[num] = location['id']
+  closestStoresInfo[location['id']] = location['address']
+
+
+print(closestStoresID)   #you can use closestStoresID to find the address of the store locations
+print(closestStoresInfo) #EX: To find the second closest store do closestStoresInfo[closestStoresID['1']]
