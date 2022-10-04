@@ -1,3 +1,4 @@
+from flask import Flask
 import requests
 import json
 import csv
@@ -71,6 +72,8 @@ response = requests.request("POST", url, headers=headers, data=payload)
 stores = json.loads(response.text)
 
 
+
+
 closestStoresID = {}
 closestStoresInfo = {}
 for num,location in enumerate(stores['data']['nearByNodes']['nodes']):
@@ -80,3 +83,17 @@ for num,location in enumerate(stores['data']['nearByNodes']['nodes']):
 
 print(closestStoresID)   #you can use closestStoresID to find the address of the store locations
 print(closestStoresInfo) #EX: To find the second closest store do closestStoresInfo[closestStoresID['1']]
+
+
+app =   Flask(__name__)
+  
+  
+@app.route("/")
+def getStoreInfo():
+    return closestStoresInfo
+
+  
+  
+  
+if __name__=='__main__':
+    app.run(debug=True)
