@@ -6,12 +6,13 @@ import re
 from bs4 import BeautifulSoup 
 
 url = "https://www.walmart.com/orchestra/home/graphql"
+zipCode = 89123 #use any zipcode to get list of stores within 50 miles
 
 payload = json.dumps({
   "query": "query storeFinderNearbyNodesQuery($input:LocationInput!){nearByNodes(input:$input){nodes{id distance type isGlassEligible displayName name phoneNumber address{addressLineOne addressLineTwo state city postalCode country}capabilities{accessPointId accessPointType}open24Hours operationalHours{day start end closed}nodeDistance{unitOfMeasure value}services{displayName name phone}geoPoint{latitude longitude}}}}",
   "variables": {
     "input": {
-      "postalCode": "91744",
+      "postalCode": str(zipCode),
       "nodeTypes": [
         "STORE"
       ],
