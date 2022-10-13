@@ -1,9 +1,12 @@
-from flask import Flask
+from multiprocessing import context
+from urllib import request
+from flask import Flask, render_template, url_for, redirect
 import requests
 import json
 import csv
 import re
 from bs4 import BeautifulSoup 
+from flask_bootstrap import Bootstrap
 
 url = "https://www.walmart.com/orchestra/home/graphql"
 zipCode = 89123 #use any zipcode to get list of stores within 50 miles
@@ -87,13 +90,20 @@ print(closestStoresInfo) #EX: To find the second closest store do closestStoresI
 
 
 app =   Flask(__name__)
-  
-  
-@app.route("/")
-def getStoreInfo():
-    return closestStoresInfo
+Bootstrap(app)
 
-  
+# @app.route("/")
+# def getStoreInfo():
+#     return closestStoresInfo
+
+@app.route('/')
+def index():
+  return render_template('index.html')  #render html file 
+
+@app.route('/my-link/') #Test to see if server is working 
+def my_link():
+  print ('I got clicked!')
+  return closestStoresInfo
   
   
 if __name__=='__main__':
