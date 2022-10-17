@@ -7,9 +7,10 @@ import csv
 import re
 from bs4 import BeautifulSoup 
 from flask_bootstrap import Bootstrap
+from getItems import getItems
 
 url = "https://www.walmart.com/orchestra/home/graphql"
-zipCode = 89123 #use any zipcode to get list of stores within 50 miles
+zipCode = 91744 #use any zipcode to get list of stores within 50 miles
 
 payload = json.dumps({
   "query": "query storeFinderNearbyNodesQuery($input:LocationInput!){nearByNodes(input:$input){nodes{id distance type isGlassEligible displayName name phoneNumber address{addressLineOne addressLineTwo state city postalCode country}capabilities{accessPointId accessPointType}open24Hours operationalHours{day start end closed}nodeDistance{unitOfMeasure value}services{displayName name phone}geoPoint{latitude longitude}}}}",
@@ -85,8 +86,14 @@ for num,location in enumerate(stores['data']['nearByNodes']['nodes']):
   closestStoresInfo[location['id']] = location['address']
 
 
+
 print(closestStoresID)   #you can use closestStoresID to find the address of the store locations
-print(closestStoresInfo) #EX: To find the second closest store do closestStoresInfo[closestStoresID['1']]
+for i in closestStoresInfo:
+  print(i,'\n',closestStoresInfo[i],'\n\n') #EX: To find the second closest store do closestStoresInfo[closestStoresID['1']]
+
+itemSearch = getItems()
+walmartSearch = itemSearch.walmartItems('broccoli', '3133') #(Item Search, StoreID)
+print(walmartSearch)
 
 
 app =   Flask(__name__)
