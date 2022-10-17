@@ -98,13 +98,17 @@ Bootstrap(app)
 
 @app.route('/')
 def index():
-  return render_template('index.html')  #render html file 
+  return render_template('index.html')  #render index.html file 
 
+
+@app.route('/products1.html') #render products.html 
+def products1():
+  return render_template('products1.html')
+  
 @app.route('/my-link/') #Test to see if server is working 
 def my_link():
   print ('I got clicked!')
   return closestStoresInfo
-  
   
 if __name__=='__main__':
     app.run(debug=True)
