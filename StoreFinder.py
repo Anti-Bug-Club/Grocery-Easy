@@ -1,3 +1,4 @@
+# from crypt import methods
 from multiprocessing import context
 from urllib import request
 from flask import Flask, render_template, url_for, redirect
@@ -114,9 +115,17 @@ def products1():
   return render_template('products1.html')
   
 @app.route('/zipCode/') #Test to see if server is working 
-def zipCode():
+def stores():
   print ('I got clicked!')
-  return getStores.walmartStores(91744)
-  
+  return ("HI")
+
+@app.route('/zipCode/<string:x>', methods =['POST'])
+def processZipCode(x):
+  x = json.loads(x)
+  walmartStores = getStores.walmartStores(x)
+  print(walmartStores)
+  return ('/')
+
+
 if __name__=='__main__':
     app.run(debug=True)

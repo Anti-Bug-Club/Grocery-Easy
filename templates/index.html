@@ -106,10 +106,13 @@ $(document).ready(function() {
 					<!DOCTYPE html>
 					<html>
 					<body>
+					<!-- zip code  -->
+					<form>
+						<input type="text" id="myText" placeholder="Enter your zipcode">
+					</form>
 					
-					<input type="text" id="myText" placeholder="Enter your zipcode">
 					
-					<button type="button" onclick="myFunction()" class="close2" aria-hidden="true">Continue</button>
+					<button type="button" onclick="return myFunction()" class="close2" aria-hidden="true">Continue</button>
 					
 					<p id="demo"></p>
 					
@@ -122,6 +125,14 @@ $(document).ready(function() {
 					  var x = document.getElementById("myText").value;
 					  if (isValidUSZip(x)){
 						$('#myModal88').modal('hide');
+
+						// Get user input for zipcode via flask to webscrape nearest stores
+						const request = new XMLHttpRequest()
+						request.open('POST', `/zipCode/${JSON.stringify(x)}`)
+						request.send();
+						zipCode= JSON.stringify(x)
+						return "/zipCode/" + zipCode
+					
 					  }
 					  else
 						  document.getElementById("demo").innerHTML = "not valid";
