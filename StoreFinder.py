@@ -90,10 +90,11 @@ class getStores():
 
 
 
-    print(closestStoresID)   #you can use closestStoresID to find the address of the store locations
-    for i in closestStoresInfo:
-      print(i,'\n',closestStoresInfo[i],'\n\n') #EX: To find the second closest store do closestStoresInfo[closestStoresID['1']]
+    # print(closestStoresID)   #you can use closestStoresID to find the address of the store locations
+    # for i in closestStoresInfo:
+    #   print(i,'\n',closestStoresInfo[i],'\n\n') #EX: To find the second closest store do closestStoresInfo[closestStoresID['1']]
 
+    #BUG Here
     # itemSearch = getItems()
     # walmartSearch = itemSearch.walmartItems('broccoli', '3133') #(Item Search, StoreID)
     # print(walmartSearch)
@@ -119,7 +120,7 @@ def stores():
   print ('I got clicked!')
   return ("HI")
 
-@app.route('/zipCode/<string:x>', methods =['POST'])
+@app.route('/ProcessZipCode/<string:x>', methods =['POST'])
 def processZipCode(x):
   x = json.loads(x)
   walmartStores = getStores.walmartStores(x)

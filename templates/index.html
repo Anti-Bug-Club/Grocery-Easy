@@ -10,7 +10,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- Custom Theme files -->
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="{url_for('static',filename='css/bootstrap.css')}" rel="stylesheet" type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" /> 
 <link href="css/menu.css" rel="stylesheet" type="text/css" media="all" /> <!-- menu style --> 
 <link href="css/ken-burns.css" rel="stylesheet" type="text/css" media="all" /> <!-- banner slider --> 
@@ -107,12 +107,12 @@ $(document).ready(function() {
 					<html>
 					<body>
 					<!-- zip code  -->
-					<form>
+					<form action="/zipCode/">
 						<input type="text" id="myText" placeholder="Enter your zipcode">
 					</form>
 					
 					
-					<button type="button" onclick="return myFunction()" class="close2" aria-hidden="true">Continue</button>
+					<button id= "zipCodeBtn" type="button" onclick=" return myFunction()" class="close2" aria-hidden="true"><a href = "/zipCode/">Continue</a></button>
 					
 					<p id="demo"></p>
 					
@@ -128,10 +128,12 @@ $(document).ready(function() {
 
 						// Get user input for zipcode via flask to webscrape nearest stores
 						const request = new XMLHttpRequest()
-						request.open('POST', `/zipCode/${JSON.stringify(x)}`)
+						request.open('POST', `/ProcessZipCode/${JSON.stringify(x)}`)
 						request.send();
+
+						// CANT FIGURE OUT HOW TO OPEN ZIPCODE HTML PAGE WITH FLASK 
 						zipCode= JSON.stringify(x)
-						return "/zipCode/" + zipCode
+						return "/ProcessZipCode/" + zipCode
 					
 					  }
 					  else
