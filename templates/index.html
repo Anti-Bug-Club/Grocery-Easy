@@ -121,9 +121,11 @@ $(document).ready(function() {
 					   return /^\d{5}(-\d{4})?$/.test(sZip);
 					}
 
-					function setUrls(aTag, formTag, x){
-						aTag.setAttribute("href", "/zipCode/" + String(x));
-					 	formTag.setAttribute("action", "/zipCode/" + String(x));
+					// Get user nearest stores based on zipcode via flask 
+					function getNearestStores (x){
+						const request = new XMLHttpRequest()
+						request.open('GET', `/zipCode/${JSON.stringify(x)}`)
+						request.send();
 					}
 					
 					function myFunction() {
@@ -131,23 +133,28 @@ $(document).ready(function() {
 					  var aTag = document.getElementById("zipCodeUrlA");
 					  var formTag = document.getElementById("zipCodeUrlForm");
 					  
-					  //set url based on zip code
-					  setUrls(aTag, formTag, x);
-
 					  if (isValidUSZip(x)){
-						$('#myModal88').modal('hide');
+						//set url based on zip code
+						aTag.setAttribute("href", "/zipCode/" + String(x));
+					 	formTag.setAttribute("action", "/zipCode/" + String(x));
 
-						// Get user nearest stores based on zipcode via flask 
-						const request = new XMLHttpRequest()
-						request.open('GET', `/zipCode/${JSON.stringify(x)}`)
-						request.send();
-					
+						$('#myModal88').modal('hide');
+						getNearestStores(x);
+				
 					  }
 					  else
 						  document.getElementById("demo").innerHTML = "not valid";
 					}
 					</script>
 					
+					<h3>Results Test</h3>
+				
+					{% for d in data: %}
+						<div class="row">
+							{{d.k}} {{d.v}}
+						</div>
+					{% endfor %}
+
 					</body>
 					</html>
 

@@ -80,8 +80,6 @@ class getStores():
     stores = json.loads(response.text)
 
 
-
-
     closestStoresID = {}
     closestStoresInfo = {}
     for num,location in enumerate(stores['data']['nearByNodes']['nodes']):
@@ -120,7 +118,15 @@ def stores(x):
   x = json.loads(x)
   print(x)
   walmartStores = getStores.walmartStores(x)
-  return walmartStores
+
+  # return walmartStores
+  storesData = []
+  stores = {
+   "k" : list(walmartStores.keys()),
+   "v" : list(walmartStores.values())
+  }
+  storesData.append(stores)
+  return render_template('index.html', data = storesData)
 
 if __name__=='__main__':
     app.run(debug=True)
