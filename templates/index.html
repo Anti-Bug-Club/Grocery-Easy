@@ -10,17 +10,17 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- Custom Theme files -->
-<link href="{url_for('static',filename='css/bootstrap.css')}" rel="stylesheet" type="text/css" media="all" />
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" /> 
-<link href="css/menu.css" rel="stylesheet" type="text/css" media="all" /> <!-- menu style --> 
-<link href="css/ken-burns.css" rel="stylesheet" type="text/css" media="all" /> <!-- banner slider --> 
-<link href="css/animate.min.css" rel="stylesheet" type="text/css" media="all" /> 
-<link href="css/owl.carousel.css" rel="stylesheet" type="text/css" media="all"> <!-- carousel slider -->  
+<link href="{{url_for('static',filename='css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{url_for('static',filename='css/style.css')}}" rel="stylesheet" type="text/css" media="all" /> 
+<link href="{{url_for('static',filename='css/menu.css')}}" rel="stylesheet" type="text/css" media="all" /> <!-- menu style --> 
+<link href="{{url_for('static',filename='css/ken-burns.css')}}" rel="stylesheet" type="text/css" media="all" /> <!-- banner slider --> 
+<link href="{{url_for('static',filename='css/animate.min.css')}}" rel="stylesheet" type="text/css" media="all" /> 
+<link href="{{url_for('static',filename='css/owl.carousel.css')}}" rel="stylesheet" type="text/css" media="all"> <!-- carousel slider -->  
 <!-- //Custom Theme files -->
 <!-- font-awesome icons -->
-<link href="css/font-awesome.css" rel="stylesheet"> 
+<link href="{{url_for('static',filename='css/font-awesome.css')}}" rel="stylesheet"> 
 <!-- js -->
-<script src="js/jquery-2.2.3.min.js"></script> 
+<script src="{{url_for('static',filename='js/jquery-2.2.3.min.js')}}"></script> 
 <!-- //js --> 
 <!-- web-fonts -->
 <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
@@ -28,7 +28,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <link href='//fonts.googleapis.com/css?family=Offside' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Tangerine:400,700' rel='stylesheet' type='text/css'>
 <!-- web-fonts --> 
-<script src="js/owl.carousel.js"></script>  
+<script src="{{url_for('static',filename='js/owl.carousel.js')}}"></script>  
 <script>
 $(document).ready(function() { 
 	$("#owl-demo").owlCarousel({ 
@@ -41,7 +41,7 @@ $(document).ready(function() {
 	}); 
 }); 
 </script>
-<script src="js/jquery-scrolltofixed-min.js" type="text/javascript"></script>
+<script src="{{url_for('static',filename='js/jquery-scrolltofixed-min.js')}}" type="text/javascript"></script>
 <script>
     $(document).ready(function() {
 
@@ -63,8 +63,8 @@ $(document).ready(function() {
     });
 </script>
 <!-- start-smooth-scrolling -->
-<script type="text/javascript" src="js/move-top.js"></script>
-<script type="text/javascript" src="js/easing.js"></script>	
+<script type="text/javascript" src="{{url_for('static',filename='js/move-top.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/easing.js')}}"></script>	
 <script type="text/javascript">
 		jQuery(document).ready(function($) {
 			$(".scroll").click(function(event){		
@@ -90,7 +90,7 @@ $(document).ready(function() {
 		});
 	</script>
 	<!-- //smooth-scrolling-of-move-up -->
-<script src="js/bootstrap.js"></script>	
+<script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>	
 </head>
 <body>
 	<div class="agileits-modal modal fade" id="myModal88" tabindex="-1" role="dialog" aria-labelledby="myModal88"
@@ -107,12 +107,12 @@ $(document).ready(function() {
 					<html>
 					<body>
 					<!-- zip code  -->
-					<form action="/zipCode/">
+					<form id = "zipCodeUrlForm">
 						<input type="text" id="myText" placeholder="Enter your zipcode">
 					</form>
 					
 					
-					<button id= "zipCodeBtn" type="button" onclick=" return myFunction()" class="close2" aria-hidden="true"><a href = "/zipCode/">Continue</a></button>
+					<button id= "zipCodeBtn" type="button" onclick="myFunction()" class="close2" aria-hidden="true"><a id = "zipCodeUrlA">Continue</a></button>
 					
 					<p id="demo"></p>
 					
@@ -120,20 +120,27 @@ $(document).ready(function() {
 					function isValidUSZip(sZip) {
 					   return /^\d{5}(-\d{4})?$/.test(sZip);
 					}
+
+					function setUrls(aTag, formTag, x){
+						aTag.setAttribute("href", "/zipCode/" + String(x));
+					 	formTag.setAttribute("action", "/zipCode/" + String(x));
+					}
 					
 					function myFunction() {
 					  var x = document.getElementById("myText").value;
+					  var aTag = document.getElementById("zipCodeUrlA");
+					  var formTag = document.getElementById("zipCodeUrlForm");
+					  
+					  //set url based on zip code
+					  setUrls(aTag, formTag, x);
+
 					  if (isValidUSZip(x)){
 						$('#myModal88').modal('hide');
 
-						// Get user input for zipcode via flask to webscrape nearest stores
+						// Get user nearest stores based on zipcode via flask 
 						const request = new XMLHttpRequest()
-						request.open('POST', `/ProcessZipCode/${JSON.stringify(x)}`)
+						request.open('GET', `/zipCode/${JSON.stringify(x)}`)
 						request.send();
-
-						// CANT FIGURE OUT HOW TO OPEN ZIPCODE HTML PAGE WITH FLASK 
-						zipCode= JSON.stringify(x)
-						return "/ProcessZipCode/" + zipCode
 					
 					  }
 					  else
@@ -958,7 +965,7 @@ $(document).ready(function() {
 				</div>
 				<div class="move-text">
 					<div class="marquee"><a href="offers.html"> <span> </span> <span> Some type of message will be displayed here </span></a></div>
-					<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
+					<script type="text/javascript" src="{{url_for('static',filename='js/jquery.marquee.min.js')}}"></script>
 					<script>
 					  $('.marquee').marquee({ pauseOnHover: true });
 					  //@ sourceURL=pen.js
@@ -1026,7 +1033,7 @@ $(document).ready(function() {
 	<!-- //footer -->		
 	
  	<!-- cart-js -->
-	<script src="js/minicart.js"></script>
+	<script src="{{url_for('static',filename='js/minicart.js')}}"></script>
 	<script>
         w3ls.render();
 
@@ -1045,8 +1052,8 @@ $(document).ready(function() {
 		</script>
 	<!-- //countdown.js -->
 	<!-- menu js aim -->
-	<script src="js/jquery.menu-aim.js"> </script>
-	<script src="js/main.js"></script> <!-- Resource jQuery -->
+	<script src="{{url_for('static',filename='js/jquery.menu-aim.js')}}"> </script>
+	<script src="{{url_for('static',filename='js/main.js')}}"></script> <!-- Resource jQuery -->
 	<!-- //menu js aim --> 
 	<!-- Bootstrap core JavaScript
     ================================================== -->

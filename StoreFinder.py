@@ -115,18 +115,12 @@ def index():
 def products1():
   return render_template('products1.html')
   
-@app.route('/zipCode/') #Test to see if server is working 
-def stores():
-  print ('I got clicked!')
-  return ("HI")
-
-@app.route('/ProcessZipCode/<string:x>', methods =['POST'])
-def processZipCode(x):
+@app.route('/zipCode/<string:x>', methods =['GET']) #get zipcode to find closest stores
+def stores(x):
   x = json.loads(x)
+  print(x)
   walmartStores = getStores.walmartStores(x)
-  print(walmartStores)
-  return ('/')
-
+  return walmartStores
 
 if __name__=='__main__':
     app.run(debug=True)
