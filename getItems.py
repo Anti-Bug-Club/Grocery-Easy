@@ -5,8 +5,6 @@ import json
 class getItems():
     def walmartItems(self,itemSearch,storeID):
 
-        itemSearch = 'broccoli'
-        storeID = '3133'
 
         url = f"https://www.walmart.com/orchestra/snb/graphql/Search/0d430070b29087d0816fdde9b3007bc0d6142d39a2537d8a1fd02cb005ea23f8/search?variables=%7B%22id%22%3A%22%22%2C%22dealsId%22%3A%22%22%2C%22query%22%3A%22{itemSearch}%22%2C%22page%22%3A1%2C%22prg%22%3A%22desktop%22%2C%22catId%22%3A%22%22%2C%22facet%22%3A%22%22%2C%22sort%22%3A%22best_match%22%2C%22rawFacet%22%3A%22%22%2C%22seoPath%22%3A%22%22%2C%22ps%22%3A40%2C%22ptss%22%3A%22%22%2C%22trsp%22%3A%22%22%2C%22beShelfId%22%3A%22%22%2C%22recall_set%22%3A%22%22%2C%22module_search%22%3A%22%22%2C%22min_price%22%3A%22%22%2C%22max_price%22%3A%22%22%2C%22storeSlotBooked%22%3A%22%22%2C%22additionalQueryParams%22%3A%7B%22hidden_facet%22%3Anull%2C%22translation%22%3Anull%2C%22isMoreOptionsTileEnabled%22%3Atrue%7D%2C%22searchArgs%22%3A%7B%22query%22%3A%22broccoli%22%2C%22cat_id%22%3A%22%22%2C%22prg%22%3A%22desktop%22%2C%22facet%22%3A%22%22%7D%2C%22fitmentFieldParams%22%3A%7B%22powerSportEnabled%22%3Atrue%7D%2C%22fitmentSearchParams%22%3A%7B%22id%22%3A%22%22%2C%22dealsId%22%3A%22%22%2C%22query%22%3A%22broccoli%22%2C%22page%22%3A1%2C%22prg%22%3A%22desktop%22%2C%22catId%22%3A%22%22%2C%22facet%22%3A%22%22%2C%22sort%22%3A%22best_match%22%2C%22rawFacet%22%3A%22%22%2C%22seoPath%22%3A%22%22%2C%22ps%22%3A40%2C%22ptss%22%3A%22%22%2C%22trsp%22%3A%22%22%2C%22beShelfId%22%3A%22%22%2C%22recall_set%22%3A%22%22%2C%22module_search%22%3A%22%22%2C%22min_price%22%3A%22%22%2C%22max_price%22%3A%22%22%2C%22storeSlotBooked%22%3A%22%22%2C%22additionalQueryParams%22%3A%7B%22hidden_facet%22%3Anull%2C%22translation%22%3Anull%2C%22isMoreOptionsTileEnabled%22%3Atrue%7D%2C%22searchArgs%22%3A%7B%22query%22%3A%22broccoli%22%2C%22cat_id%22%3A%22%22%2C%22prg%22%3A%22desktop%22%2C%22facet%22%3A%22%22%7D%2C%22cat_id%22%3A%22%22%2C%22_be_shelf_id%22%3A%22%22%7D%2C%22enableFashionTopNav%22%3Atrue%2C%22enablePortableFacets%22%3Atrue%2C%22enableFacetCount%22%3Atrue%2C%22fetchMarquee%22%3Atrue%2C%22fetchSkyline%22%3Atrue%2C%22fetchGallery%22%3Afalse%2C%22fetchSbaTop%22%3Atrue%2C%22tenant%22%3A%22WM_GLASS%22%2C%22enableFlattenedFitment%22%3Atrue%2C%22pageType%22%3A%22SearchPage%22%7D"
 
@@ -58,10 +56,59 @@ class getItems():
             itemID[num] = i['name']
             itemInfo[i['name']] = {'shortDescription' : i['shortDescription'],
                                 'imageURL' : i['imageInfo']['thumbnailUrl'],
-                                'currentPrice' : i['priceInfo']['currentPrice']}
+                                'currentPrice' : i['priceInfo']['currentPrice']}#can add itemID if needed
 
         print(itemID,'\n')
         for i in itemInfo:
             print(i, '\n', itemInfo[i],'\n\n\n')
+
+        items = [itemID,itemInfo]
         
+        return items
+
+    def targetItems(self,itemSearch,storeID):
+
+        url = "https://redsky.target.com/redsky_aggregations/v1/web/plp_search_v2?key=9f36aeafbe60771e321a7cc95a78140772ab3e96&channel=WEB&count=24&default_purchasability_filter=true&include_sponsored=true&keyword=ice+cream&offset=0&page=%2Fs%2Fice+cream&platform=desktop&pricing_store_id=1028&scheduled_delivery_store_id=2147&store_ids=1028%2C2147%2C1033%2C222%2C767&useragent=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_15_7%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F106.0.0.0+Safari%2F537.36&visitor_id=0183A19D5C1D0201BE60A72076D3873E&zip=91792"
+
+        payload={}
+        headers = {
+        'authority': 'redsky.target.com',
+        'accept': 'application/json',
+        'accept-language': 'en-US,en;q=0.9',
+        'cookie': 'TealeafAkaSid=zQiS7YFzDuDmwVo2bHjNJ6KfGQfSYjGQ; visitorId=0183A19D5C1D0201BE60A72076D3873E; sapphire=1; UserLocation=91792|34.020|-117.900|CA|US; ci_pixmgr=other; crl8.fpcuid=1e3c6df0-d017-4c02-98b8-3171eed4203c; fiatsCookie=DSI_1028|DSN_West%20Covina|DSZ_91791; accessToken=eyJraWQiOiJlYXMyIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI5NDkzMDRiNC1jOGQ1LTQyY2YtOWUwMC01NzQ5OTU5OTRiMzIiLCJpc3MiOiJNSTYiLCJleHAiOjE2NjYwNjE5NDgsImlhdCI6MTY2NTk3NTU0OCwianRpIjoiVEdULmM5NjA4ZjYxOTVlYTRiMzRiMWJhZGI1OWZjZDg1NDIwLWwiLCJza3kiOiJlYXMyIiwic3V0IjoiRyIsImRpZCI6ImNhYWJhYTlkNmRhY2Q0MTkyZTZmMzRjN2FhMWNiMjNhZTY3ZmE2ZjhhYjc5MzcxYWUyNGQwYjk4YWVhMTkyMmEiLCJzY28iOiJlY29tLm5vbmUsb3BlbmlkIiwiY2xpIjoiZWNvbS13ZWItMS4wLjAiLCJhc2wiOiJMIn0.SqRPiwH2zBMxLpDt_zK6bp5DgNagz4Fg68QsjGjN5oaGAHX_9yxnpyl-6J7U0jzO-ilv2P_A234Hu2Ys3uiCIYY2jbxqyUseG5rPc4l4rMaLeFBqU4Kp7LUsgI_QPuGHlpWshRL-axxwy1I9Uu3KUY80MDS2B_lj5lzESVNOgJJOJUCTNJgip2x1bFvJZogad0mecRHEaJuTcaZ1W8BrbUQTpb833u-uKUdYEwrR30eB-jd_5kJLWIozG4DSyyzBv_2UZYqldLqZl2TVu7gqnAMaLO6MCvYK_xoPSCvEtusY9OudlUQU4vA7RbMruyviixGNeb0rRz8iJ0FAwdIdHA; idToken=eyJhbGciOiJub25lIn0.eyJzdWIiOiI5NDkzMDRiNC1jOGQ1LTQyY2YtOWUwMC01NzQ5OTU5OTRiMzIiLCJpc3MiOiJNSTYiLCJleHAiOjE2NjYwNjE5NDgsImlhdCI6MTY2NTk3NTU0OCwiYXNzIjoiTCIsInN1dCI6IkciLCJjbGkiOiJlY29tLXdlYi0xLjAuMCIsInBybyI6eyJmbiI6bnVsbCwiZW0iOm51bGwsInBoIjpmYWxzZSwibGVkIjpudWxsLCJsdHkiOmZhbHNlfX0.; refreshToken=qjvkF1sANHoiVenSt6xK7yFZrRHmYbQOSk4GgQ317kzSwOr0dRbh40YKvv4OzVAC04KOAoBDXR4eDCQeelu75Q; _mitata=MzAzMmM5YjYyMmIzMzRjZTdmM2E5N2M3YmIxNGEyY2FiMzZmMmM2NWUzZTQxZTJhZTE5MWNkNGYzYmIzZmE3Yg==_/@#/1666039438_/@#/c1iy9LrBn53DJEiz_/@#/ZGIzNDE5N2FiYzM1NmVmODgyNjU3NWM4NDlkYjRhZDM2YTA1OTcyNjRlM2ZmZDg2MTE2NjYyYjc5NTViYmFkNw==_/@#/000; ffsession={%22sessionHash%22:%221fd7f4fa462a241665710136187%22%2C%22prevPageName%22:%22search:%20search%20results%22%2C%22prevPageType%22:%22search:%20search%20results%22%2C%22prevPageUrl%22:%22https://www.target.com/s?searchTerm=ice+cream%22%2C%22prevSearchTerm%22:%22ice%20cream%22%2C%22sessionHit%22:22}',
+        'origin': 'https://www.target.com',
+        'referer': 'https://www.target.com/s?searchTerm=ice+cream',
+        'sec-ch-ua': '"Chromium";v="106", "Google Chrome";v="106", "Not;A=Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"macOS"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-site',
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36'
+        }
+
+        response = requests.request("GET", url, headers=headers, data=payload)
+
+        searchedItems = json.loads(response.text)
+
+        itemID = {}
+        itemInfo = {}
+
+        for num,i in enumerate(searchedItems['data']['search']['products']):
+            itemID[num] = i['item']['product_description']['title']
+            itemInfo[i['item']['product_description']['title']] = {'price' : i['price']['formatted_current_price'],
+                                                                    'rating' : i['ratings_and_reviews']['statistics']['rating']['average'],
+                                                                    'imageURL': i['item']['enrichment']['images'],
+                                                                    'buyURL': i['item']['enrichment']['buy_url'],
+                                                                    'description' : i['item']['product_description']['soft_bullets']['bullets'],
+                                                                    'allergies' : i['item']['product_description']['bullet_descriptions']}
+
+        print(itemID)
+        for i in itemInfo:
+            print(i,'\n',itemInfo[i],'\n\n')
+        items = [itemID,itemInfo]
         return items[itemID,itemInfo]
+            
+        
+getitem = getItems()
+getitem.walmartItems('broccoli', '3133')
