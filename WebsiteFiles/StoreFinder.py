@@ -9,10 +9,12 @@ import re
 from bs4 import BeautifulSoup 
 from flask_bootstrap import Bootstrap
 from getItems import getItems
+import asyncio
+import time
 
 class getStores():
   #use any zipcode to get list of stores within 50 miles
-  def walmartStores(zipCode):
+  async def walmartStores(zipCode):
     url = "https://www.walmart.com/orchestra/home/graphql"
 
     payload = json.dumps({
@@ -114,10 +116,10 @@ def products1():
   return render_template('products1.html')
   
 @app.route('/zipCode/<string:x>', methods =['GET']) #get zipcode to find closest stores
-def stores(x):
+async def stores(x):
   x = json.loads(x)
   print(x)
-  walmartStores = getStores.walmartStores(x)
+  walmartStores =  await getStores.walmartStores(x)
 
   # return walmartStores
   storesData = []
@@ -126,7 +128,8 @@ def stores(x):
    "v" : list(walmartStores.values())
   }
   storesData.append(stores)
-  return render_template('index.html', data = storesData)
+  #time.sleep(1)
+  return render_template('index.html', data = storesData,)
 
 if __name__=='__main__':
     app.run(debug=True)
