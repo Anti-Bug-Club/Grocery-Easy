@@ -95,7 +95,10 @@ class getStores():
     # for i in closestStoresInfo:
     #   print(i,'\n',closestStoresInfo[i],'\n\n') #EX: To find the second closest store do closestStoresInfo[closestStoresID['1']]
 
-    #BUG Here
+
+    #Get cheapest price at walmart store 
+
+    #Item searched at specfic store id BUG Here
     # itemSearch = getItems()
     # walmartSearch = itemSearch.walmartItems('broccoli', '3133') #(Item Search, StoreID)
     # print(walmartSearch)
