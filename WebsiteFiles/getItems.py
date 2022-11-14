@@ -124,8 +124,8 @@ def getWalmartPrices(walmartItems):
         return prices[0]
 
 
-getitem = getItems()
-walmartItems = getitem.walmartItems('broccoli', '3133')
+# getitem = getItems()
+# walmartItems = getitem.walmartItems('broccoli', '3133')
 
-cheapestWalmartPrice = getWalmartPrices(walmartItems)
-print("Cheapest price found", cheapestWalmartPrice) 
+# cheapestWalmartPrice = getWalmartPrices(walmartItems)
+# print("Cheapest price found", cheapestWalmartPrice) 
