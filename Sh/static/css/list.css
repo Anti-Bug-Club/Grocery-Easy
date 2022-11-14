@@ -1,0 +1,120 @@
+.items-list {
+    box-shadow: -2px 1px 14px #e5e6e8;
+    list-style-type: none;
+    margin-left:50px;
+    margin-right:50px;
+    padding-left:0px;
+    margin-bottom:15px;
+    width:50%;
+    
+    }
+    
+    
+    @media only screen and (max-width:400px)  {
+    .items-list {
+    height:110px;
+    }
+    .items-list .kmtext {
+      padding-bottom:6px;
+    }
+    .items-list img
+    {
+    float:left;
+     width:40%;
+     height:100%;
+     margin-right:7px;
+    }
+    .items-list .righttxt {
+     width:100%;
+    padding: 5px;
+    }
+    }
+    @media only screen and (min-width:401px) and (max-width:500px)  {
+    .items-list {
+    height:200px;
+    }
+    .items-list .kmtext {
+      padding-bottom:20px;
+    }
+    .items-list img
+    {
+    float:left;
+     width:45%;
+     height:100%;
+     margin-right:7px;
+    }
+    .items-list .righttxt {
+     width:100%;
+    padding: 15px;
+    }
+    }
+    
+    @media only screen and (min-width:501px) and (max-width:700px)   {
+    .items-list {
+    height:250px;
+    }
+    .items-list .kmtext {
+      padding-bottom:20px;
+    }
+    .items-list img
+    {
+    float:left;
+     width:45%;
+     height:100%;
+     margin-right:7px;
+    }
+    .items-list .righttxt {
+     width:100%;
+    padding: 40px;
+    }
+    }
+    @media only screen and (min-width:701px) and (max-width:1399px)  {
+    .items-list {
+    height:300px;
+    }
+    .items-list .kmtext {
+      padding-bottom:20px;
+    }
+    .items-list img
+    {
+    float:left;
+     max-width: 20%;
+     height: auto;
+     margin-right:20px;
+    }
+    .items-list .righttxt {
+     width:100%;
+    padding: 50px;
+    }
+    }
+    @media only screen and (min-width:1400px) {
+    .items-list {
+    height:330px;
+    }
+    .items-list .kmtext {
+      padding-bottom:20px;
+    }
+    .items-list img
+    {
+    float:left;
+     width:45%;
+     height:100%;
+     margin-right:7px;
+    }
+    .items-list .righttxt {
+     width:100%;
+    padding: 60px;
+    }
+    }
+    .items-list img
+    {
+     object-fit: cover;
+    border-right: 5px solid;
+    border-image:   linear-gradient(to bottom, #86DF7B 50%,#7BAADF 50%) 2;
+    }
+    
+    .items-list .kmtext {
+      color:#26b7a1;
+      font-size:80%;
+        overflow: hidden;
+    }
