@@ -14,6 +14,7 @@ class getStores():
   #use any zipcode to get list of stores within 50 miles
   def walmartStores(zipCode):
     url = "https://www.walmart.com/orchestra/home/graphql"
+    radius = 15
 
     payload = json.dumps({
       "query": "query storeFinderNearbyNodesQuery($input:LocationInput!){nearByNodes(input:$input){nodes{id distance type isGlassEligible displayName name phoneNumber address{addressLineOne addressLineTwo state city postalCode country}capabilities{accessPointId accessPointType}open24Hours operationalHours{day start end closed}nodeDistance{unitOfMeasure value}services{displayName name phone}geoPoint{latitude longitude}}}}",
@@ -33,7 +34,7 @@ class getStores():
             "PICKUP_BAKERY",
             "ACC"
           ],
-          "radius": 50
+          "radius": radius
         }
       }
     })
