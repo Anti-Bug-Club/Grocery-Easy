@@ -1,8 +1,13 @@
-
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Groceasy | Home :: w3layouts</title>
+<title>Smart Bazaar an E-commerce Online Shopping Category Flat Bootstrap Responsive Website Template | Contact :: w3layouts</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Smart Bazaar Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -10,38 +15,17 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- Custom Theme files -->
-<link href="{{url_for('static',filename='css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all" />
-<link href="{{url_for('static',filename='css/style.css')}}" rel="stylesheet" type="text/css" media="all" /> 
-<link href="{{url_for('static',filename='css/menu.css')}}" rel="stylesheet" type="text/css" media="all" /> <!-- menu style --> 
-<link href="{{url_for('static',filename='css/ken-burns.css')}}" rel="stylesheet" type="text/css" media="all" /> <!-- banner slider --> 
-<link href="{{url_for('static',filename='css/animate.min.css')}}" rel="stylesheet" type="text/css" media="all" /> 
-<link href="{{url_for('static',filename='css/owl.carousel.css')}}" rel="stylesheet" type="text/css" media="all"> <!-- carousel slider -->  
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" /> 
+<link href="css/animate.min.css" rel="stylesheet" type="text/css" media="all" /><!-- animation -->
+<link href="css/menu.css" rel="stylesheet" type="text/css" media="all" /> <!-- menu style -->    
 <!-- //Custom Theme files -->
 <!-- font-awesome icons -->
-<link href="{{url_for('static',filename='css/font-awesome.css')}}" rel="stylesheet"> 
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<!-- //font-awesome icons -->
 <!-- js -->
-<script src="{{url_for('static',filename='js/jquery-2.2.3.min.js')}}"></script> 
-<!-- //js --> 
-<!-- web-fonts -->
-<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
-<link href='//fonts.googleapis.com/css?family=Lovers+Quarrel' rel='stylesheet' type='text/css'>
-<link href='//fonts.googleapis.com/css?family=Offside' rel='stylesheet' type='text/css'>
-<link href='//fonts.googleapis.com/css?family=Tangerine:400,700' rel='stylesheet' type='text/css'>
-<!-- web-fonts --> 
-<script src="{{url_for('static',filename='js/owl.carousel.js')}}"></script>  
-<script>
-$(document).ready(function() { 
-	$("#owl-demo").owlCarousel({ 
-	  autoPlay: 3000, //Set AutoPlay to 3 seconds 
-	  items :4,
-	  itemsDesktop : [640,5],
-	  itemsDesktopSmall : [480,2],
-	  navigation : true
- 
-	}); 
-}); 
-</script>
-<script src="{{url_for('static',filename='js/jquery-scrolltofixed-min.js')}}" type="text/javascript"></script>
+<script src="js/jquery-2.2.3.min.js"></script> 
+<script src="js/jquery-scrolltofixed-min.js" type="text/javascript"></script><!-- fixed nav js -->
 <script>
     $(document).ready(function() {
 
@@ -62,9 +46,15 @@ $(document).ready(function() {
         });
     });
 </script>
+<!-- //js --> 
+<!-- web-fonts -->
+<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Lovers+Quarrel' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Offside' rel='stylesheet' type='text/css'> 
+<!-- web-fonts -->  
 <!-- start-smooth-scrolling -->
-<script type="text/javascript" src="{{url_for('static',filename='js/move-top.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static',filename='js/easing.js')}}"></script>	
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>	
 <script type="text/javascript">
 		jQuery(document).ready(function($) {
 			$(".scroll").click(function(event){		
@@ -75,102 +65,73 @@ $(document).ready(function() {
 </script>
 <!-- //end-smooth-scrolling -->
 <!-- smooth-scrolling-of-move-up -->
-	<script type="text/javascript">
-		$(document).ready(function() {
+<script type="text/javascript">
+	$(document).ready(function() {
+	
+		var defaults = {
+			containerID: 'toTop', // fading element id
+			containerHoverID: 'toTopHover', // fading element hover id
+			scrollSpeed: 1200,
+			easingType: 'linear' 
+		};
 		
-			var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear' 
-			};
-			
-			$().UItoTop({ easingType: 'easeOutQuart' });
-			
-		});
-	</script>
-	<!-- //smooth-scrolling-of-move-up -->
-<script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>	
+		$().UItoTop({ easingType: 'easeOutQuart' });
+		
+	});
+</script>
+<!-- //smooth-scrolling-of-move-up -->
 </head>
 <body>
-	<div class="agileits-modal modal fade" id="myModal88" tabindex="-1" role="dialog" aria-labelledby="myModal88"
-		aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					
-					<h4 class="modal-title" id="myModalLabel"><i class="fa fa-map-marker" aria-hidden="true"></i> Location</h4>
-				</div>
-				
-
-					<!DOCTYPE html>
-					<html>
-					<body>
-					<!-- zip code  -->
-					<form id = "zipCodeUrlForm">
-						<input type="text" id="myText" placeholder="Enter your zipcode">
-					</form>
-					
-					
-					<button id= "zipCodeBtn" type="button" onclick="myFunction()" class="close2" aria-hidden="true"><a id = "zipCodeUrlA">Continue</a></button>
-					
-					<p id="demo"></p>
-					
-					<script>
-					function isValidUSZip(sZip) {
-					   return /^\d{5}(-\d{4})?$/.test(sZip);
-					}
-
-					// Get user nearest stores based on zipcode via flask 
-					function getNearestStores (x){
-						const request = new XMLHttpRequest()
-						request.open('GET', `/zipCode/${JSON.stringify(x)}`)
-						request.send();
-					}
-					
-					function myFunction() {
-					  var x = document.getElementById("myText").value;
-					  var aTag = document.getElementById("zipCodeUrlA");
-					  var formTag = document.getElementById("zipCodeUrlForm");
-					  
-					  if (isValidUSZip(x)){
-						//set url based on zip code
-						aTag.setAttribute("href", "/zipCode/" + String(x));
-					 	formTag.setAttribute("action", "/zipCode/" + String(x));
-
-						//$('#myModal88').modal('hide');
-						getNearestStores(x);
-				
-					  }
-					  else
-						  document.getElementById("demo").innerHTML = "not valid";
-					}
-					</script>
-					
-					<h3>Results Test</h3>
-				
-					{% for d in data: %}
-						<div class="row">
-							{{d.k}} {{d.v}}
-						</div>
-					{% endfor %}
-
-					</body>
-					</html>
-
-				</div>
+	<!-- header -->
+	<div class="header">
+		<div class="w3ls-header"><!--header-one--> 
+			<div class="w3ls-header-left">
+				<p><a href="#">UPTO $50 OFF ON LAPTOPS | USE COUPON CODE LAPPY </a></p>
 			</div>
+			<div class="w3ls-header-right">
+				<ul>
+					<li class="dropdown head-dpdn">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i> My Account<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="login.html">Login </a></li> 
+							<li><a href="signup.html">Sign Up</a></li> 
+							<li><a href="login.html">My Orders</a></li>  
+							<li><a href="login.html">Wallet</a></li> 
+						</ul> 
+					</li> 
+					<li class="dropdown head-dpdn">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-percent" aria-hidden="true"></i> Today's Deals<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="offers.html">Cash Back Offers</a></li> 
+							<li><a href="offers.html">Product Discounts</a></li>
+							<li><a href="offers.html">Special Offers</a></li> 
+						</ul> 
+					</li> 
+					<li class="dropdown head-dpdn">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gift" aria-hidden="true"></i> Gift Cards<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="offers.html">Product Gift card</a></li> 
+							<li><a href="offers.html">Occasions Register</a></li>
+							<li><a href="offers.html">View Balance</a></li> 
+						</ul> 
+					</li> 
+					<li class="dropdown head-dpdn">
+						<a href="contact.html" class="dropdown-toggle"><i class="fa fa-map-marker" aria-hidden="true"></i> Store Finder</a>
+					</li> 
+					<li class="dropdown head-dpdn">
+						<a href="card.html" class="dropdown-toggle"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Credit Card</a>
+					</li> 
+					<li class="dropdown head-dpdn">
+						<a href="help.html" class="dropdown-toggle"><i class="fa fa-question-circle" aria-hidden="true"></i> Help</a>
+					</li>
+				</ul>
+			</div>
+			<div class="clearfix"> </div> 
 		</div>
-	</div>
-	<script>
-		$('#myModal88').modal('show');
-	</script>
-	<body>
-	
 		<div class="header-two"><!-- header-two -->
 			<div class="container">
 				<div class="header-logo">
-					<h1><a href="index.html"><span>G</span>roc <i>Easy</i></a></h1>
+					<h1><a href="index.html"><span>S</span>mart <i>Bazaar</i></a></h1>
 					<h6>Your stores. Your place.</h6> 
 				</div>	
 				<div class="header-search">
@@ -185,13 +146,18 @@ $(document).ready(function() {
 					<div class="my-account">
 						<a href="contact.html"><i class="fa fa-map-marker" aria-hidden="true"></i> CONTACT US</a>						
 					</div>
-					
+					<div class="cart"> 
+						<form action="#" method="post" class="last"> 
+							<input type="hidden" name="cmd" value="_cart" />
+							<input type="hidden" name="display" value="1" />
+							<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+						</form>  
 					</div>
 					<div class="clearfix"> </div> 
 				</div> 
 				<div class="clearfix"> </div>
 			</div>		
-	</div><!-- //header-two -->
+		</div><!-- //header-two -->
 		<div class="header-three"><!-- header-three -->
 			<div class="container">
 				<div class="menu">
@@ -971,8 +937,8 @@ $(document).ready(function() {
 					</div> <!-- .cd-dropdown-wrapper -->	 
 				</div>
 				<div class="move-text">
-					<div class="marquee"><a href="offers.html"> <span> </span> <span> Some type of message will be displayed here </span></a></div>
-					<script type="text/javascript" src="{{url_for('static',filename='js/jquery.marquee.min.js')}}"></script>
+					<div class="marquee"><a href="offers.html"> New collections are available here...... <span>Get extra 10% off on everything | no extra taxes </span> <span> Try shipping pass free for 15 days with unlimited</span></a></div>
+					<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
 					<script>
 					  $('.marquee').marquee({ pauseOnHover: true });
 					  //@ sourceURL=pen.js
@@ -982,65 +948,203 @@ $(document).ready(function() {
 		</div>
 	</div>
 	<!-- //header --> 	
-	<!--  about-page -->
-	<div class="about">
+	<!-- contact-page -->
+	<div class="contact">
 		<div class="container"> 
-			<h3 class="w3ls-title w3ls-title1">About Groceasy
-			<div class="about-text">	
-				<p>Our website will compare the price of an item from different groceries store and make sure you will get the cheapest price of your desired product!</p> 
-				<div class="col-md-3 ftr-top-left about-text-grids">
-					<i class="fa fa-shopping-basket" aria-hidden="true"></i>
-					<h4> <br></h4>
+			<h3 class="w3ls-title w3ls-title1">Contact Us</h3>  
+			<div class="map-info">
+				<div class="col-md-6 map-grids">
+					<h4>Our Smart bazaar Store1</h4>
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.9503398796587!2d-73.9940307!3d40.719109700000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a27e2f24131%3A0x64ffc98d24069f02!2sCANADA!5e0!3m2!1sen!2sin!4v1441710758555"></iframe>
 				</div>
-				<!-- Add icons of grocery stores-->
-				<div class="col-md-3 ftr-top-left about-text-grids">
-					<i class="fa fa-users" aria-hidden="true"></i>
-					<h4> <br> </h4>
-				</div>
-				<div class="col-md-3 ftr-top-left about-text-grids">
-					<i class="fa fa-credit-card" aria-hidden="true"></i>
-					<h4> <br></h4>
-				</div>
-				<div class="col-md-3 ftr-top-left about-text-grids">
-					<i class="fa fa-globe" aria-hidden="true"></i>
-					<h4><br></h4>
-				</div>
+				<div class="col-md-6 map-grids">
+					<h4>Our Smart bazaar Store2</h4>
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23778.253788067046!2d-87.77626504212625!3d41.84376259112007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e33967c81db8f%3A0xbc5872c77c003120!2sCicero%2C+IL!5e0!3m2!1sen!2sin!4v1470650895897"></iframe>
+				</div>   
+				<div class="col-md-6 map-grids">
+					<h4>Our Smart bazaar Store3</h4>
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4851.135123262741!2d105.86847248902144!3d58.25136049196456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5cf6e6f5eed7e5eb%3A0xfec064728556bbad!2sTokma%2C+Irkutsk+Oblast%2C+Russia%2C+666639!5e0!3m2!1sen!2sin!4v1470650971228"></iframe>
+				</div>   
+				<div class="col-md-6 map-grids">
+					<h4>Our Smart bazaar Store4</h4>
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.9503398796587!2d-73.9940307!3d40.719109700000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a27e2f24131%3A0x64ffc98d24069f02!2sCANADA!5e0!3m2!1sen!2sin!4v1441710758555" allowfullscreen=""></iframe>
+				</div> 
 				<div class="clearfix"> </div>
-			</div>
-			<div class="history">
-				<h3 class="w3ls-title">Our Mission</h3>
-				<p>Our program will let users search for grocery items and show different prices from different stores
-					The user can add multiple items into cart 
-					The cart shows the total price of item from different grocery stores 
-					Let user know which store has the cheapest price
-					User can filter out store by range or include/exclude specific grocery store
-					There will be a feature to show weekly ads, deals, or coupons for the grocery stores
-					</p> 
-				
+			</div>  
+			<div class="contact-form-row">
+				<h3 class="w3ls-title w3ls-title1">Drop Us a line</h3>  
+				<div class="col-md-7 contact-left">
+					<form action="#" method="post">
+						<input type="text" name="Name" placeholder="Name" required="">
+						<input class="email" type="text" name="Email" placeholder="Email" required="">
+						<textarea placeholder="Message" name="Message" required=""></textarea>
+						<input type="submit" value="SUBMIT">
+					</form>
+				</div> 
+				<div class="col-md-4 contact-right">
+					<div class="cnt-w3agile-row">
+						<div class="col-md-3 contact-w3icon">
+							<i class="fa fa-truck" aria-hidden="true"></i>
+						</div>
+						<div class="col-md-9 contact-w3text">
+							<p>Manage Your Orders <br>Easily Track Orders & Returns </p> 
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+					<div class="cnt-w3agile-row cnt-w3agile-row-mdl">
+						<div class="col-md-3 contact-w3icon">
+							<i class="fa fa-bell" aria-hidden="true"></i>
+						</div>
+						<div class="col-md-9 contact-w3text">
+							<p>Notifications <br>Get Relevant Alerts & Recommendations</p> 
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+					<div class="cnt-w3agile-row">
+						<div class="col-md-3 contact-w3icon">
+							<i class="fa fa-heart" aria-hidden="true"></i>
+						</div>
+						<div class="col-md-9 contact-w3text">
+							<p>Requirements<br> With Wishlists, Reviews, Ratings</p> 
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</div> 
+				<div class="clearfix"> </div>	
 			</div>
 		</div>
 	</div>
-	<div class="copy-right"> 
-		<div class="container">
-			<p>Groceasy <a href="http://w3layouts.com"> </a></p>
-		</div>
-	</div> 
-	<!-- //about-page --> 
+	<!-- //contact-page --> 
 	<!-- footer-top -->
 	<div class="w3agile-ftr-top">
 		<div class="container">
 			<div class="ftr-toprow">
 				<div class="col-md-4 ftr-top-grids">
 					<div class="ftr-top-left">
-				
+						<i class="fa fa-truck" aria-hidden="true"></i>
+					</div> 
+					<div class="ftr-top-right">
+						<h4>FREE DELIVERY</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tempus justo ac </p>
+					</div> 
+					<div class="clearfix"> </div>
+				</div> 
+				<div class="col-md-4 ftr-top-grids">
+					<div class="ftr-top-left">
+						<i class="fa fa-user" aria-hidden="true"></i>
+					</div> 
+					<div class="ftr-top-right">
+						<h4>CUSTOMER CARE</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tempus justo ac </p>
+					</div> 
+					<div class="clearfix"> </div>
+				</div>
+				<div class="col-md-4 ftr-top-grids">
+					<div class="ftr-top-left">
+						<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+					</div> 
+					<div class="ftr-top-right">
+						<h4>GOOD QUALITY</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tempus justo ac </p>
+					</div>
+					<div class="clearfix"> </div>
+				</div> 
+				<div class="clearfix"> </div>
+			</div>
+		</div>
 	</div>
-	<!-- //footer-top -->  
+	<!-- //footer-top --> 
 	<!-- subscribe -->
-	
+	<div class="subscribe"> 
+		<div class="container">
+			<div class="col-md-6 social-icons w3-agile-icons">
+				<h4>Keep in touch</h4>  
+				<ul>
+					<li><a href="#" class="fa fa-facebook icon facebook"> </a></li>
+					<li><a href="#" class="fa fa-twitter icon twitter"> </a></li>
+					<li><a href="#" class="fa fa-google-plus icon googleplus"> </a></li>
+					<li><a href="#" class="fa fa-dribbble icon dribbble"> </a></li>
+					<li><a href="#" class="fa fa-rss icon rss"> </a></li> 
+				</ul>
+				<ul class="apps"> 
+					<li><h4>Download Our app : </h4> </li>
+					<li><a href="#" class="fa fa-apple"></a></li>
+					<li><a href="#" class="fa fa-windows"></a></li>
+					<li><a href="#" class="fa fa-android"></a></li>
+				</ul>
+			</div> 
+			<div class="col-md-6 subscribe-right">
+				<h4>Sign up for email and get 25%off!</h4>  
+				<form action="#" method="post"> 
+					<input type="text" name="email" placeholder="Enter your Email..." required="">
+					<input type="submit" value="Subscribe">
+				</form>
+				<div class="clearfix"> </div> 
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+	<!-- //subscribe --> 
+	<!-- footer -->
+	<div class="footer">
+		<div class="container">
+			<div class="footer-info w3-agileits-info">
+				<div class="col-md-4 address-left agileinfo">
+					<div class="footer-logo header-logo">
+						<h2><a href="index.html"><span>S</span>mart <i>Bazaar</i></a></h2>
+						<h6>Your stores. Your place.</h6>
+					</div>
+					<ul>
+						<li><i class="fa fa-map-marker"></i> 123 San Sebastian, New York City USA.</li>
+						<li><i class="fa fa-mobile"></i> 333 222 3333 </li>
+						<li><i class="fa fa-phone"></i> +222 11 4444 </li>
+						<li><i class="fa fa-envelope-o"></i> <a href="mailto:example@mail.com"> mail@example.com</a></li>
+					</ul> 
+				</div>
+				<div class="col-md-8 address-right">
+					<div class="col-md-4 footer-grids">
+						<h3>Company</h3>
+						<ul>
+							<li><a href="about.html">About Us</a></li>
+							<li><a href="marketplace.html">Marketplace</a></li>  
+							<li><a href="values.html">Core Values</a></li>  
+							<li><a href="privacy.html">Privacy Policy</a></li>
+						</ul>
+					</div>
+					<div class="col-md-4 footer-grids">
+						<h3>Services</h3>
+						<ul>
+							<li><a href="contact.html">Contact Us</a></li>
+							<li><a href="login.html">Returns</a></li> 
+							<li><a href="faq.html">FAQ</a></li>
+							<li><a href="sitemap.html">Site Map</a></li>
+							<li><a href="login.html">Order Status</a></li>
+						</ul> 
+					</div>
+					<div class="col-md-4 footer-grids">
+						<h3>Payment Methods</h3>
+						<ul>
+							<li><i class="fa fa-laptop" aria-hidden="true"></i> Net Banking</li>
+							<li><i class="fa fa-money" aria-hidden="true"></i> Cash On Delivery</li>
+							<li><i class="fa fa-pie-chart" aria-hidden="true"></i>EMI Conversion</li>
+							<li><i class="fa fa-gift" aria-hidden="true"></i> E-Gift Voucher</li>
+							<li><i class="fa fa-credit-card" aria-hidden="true"></i> Debit/Credit Card</li>
+						</ul>  
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
 	<!-- //footer -->		
-	
- 	<!-- cart-js -->
-	<script src="{{url_for('static',filename='js/minicart.js')}}"></script>
+	<div class="copy-right"> 
+		<div class="container">
+			<p>© 2016 Smart bazaar . All rights reserved | Design by <a href="http://w3layouts.com"> W3layouts.</a></p>
+		</div>
+	</div> 
+	<!-- cart-js -->
+	<script src="js/minicart.js"></script>
 	<script>
         w3ls.render();
 
@@ -1056,14 +1160,15 @@ $(document).ready(function() {
         		}
         	}
         });
-		</script>
-	<!-- //countdown.js -->
+    </script>  
+	<!-- //cart-js -->
 	<!-- menu js aim -->
-	<script src="{{url_for('static',filename='js/jquery.menu-aim.js')}}"> </script>
-	<script src="{{url_for('static',filename='js/main.js')}}"></script> <!-- Resource jQuery -->
+	<script src="js/jquery.menu-aim.js"> </script>
+	<script src="js/main.js"></script> <!-- Resource jQuery -->
 	<!-- //menu js aim --> 
 	<!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster --> 
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/bootstrap.js"></script>
 </body>
 </html>

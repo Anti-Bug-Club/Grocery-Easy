@@ -1,6 +1,6 @@
 # from crypt import methods
 from multiprocessing import context
-from urllib import request
+from flask import request
 from flask import Flask, render_template, url_for, redirect
 import requests
 import json
@@ -16,7 +16,6 @@ class getStores():
   #use any zipcode to get list of stores within 50 miles
   async def walmartStores(zipCode):
     url = "https://www.walmart.com/orchestra/home/graphql"
-    radius = 15
 
     payload = json.dumps({
       "query": "query storeFinderNearbyNodesQuery($input:LocationInput!){nearByNodes(input:$input){nodes{id distance type isGlassEligible displayName name phoneNumber address{addressLineOne addressLineTwo state city postalCode country}capabilities{accessPointId accessPointType}open24Hours operationalHours{day start end closed}nodeDistance{unitOfMeasure value}services{displayName name phone}geoPoint{latitude longitude}}}}",
@@ -36,7 +35,7 @@ class getStores():
             "PICKUP_BAKERY",
             "ACC"
           ],
-          "radius": radius
+          "radius": 50
         }
       }
     })
@@ -102,7 +101,7 @@ class getStores():
     
     return closestStoresInfo  #Return all the closest walmart stores found
 
-
+itemSearch = getItems()
 
 app =   Flask(__name__)
 Bootstrap(app)
@@ -111,6 +110,12 @@ Bootstrap(app)
 def index():
   return render_template('index.html')  #render index.html file 
 
+@app.route('/search')
+def getItems():
+  item = request.args.get('item', 'broccoli')
+  store = request.args.get('store', '3133')
+  walmartSearch = itemSearch.walmartItems(item, store)
+  return render_template('about.html', items = walmartSearch)
 
 @app.route('/products1.html') #render products.html 
 def products1():
