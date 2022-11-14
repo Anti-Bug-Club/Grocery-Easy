@@ -118,7 +118,7 @@ def getWalmartPrices(walmartItems):
                         #print("Key= " + key, " : Val= ", value)
                         if(key == "price"): #Append Int price to list
                             prices.append(value)
-                            print(value)    
+                            #print(value)    
          
         prices.sort()   #Sort list of prices
         return prices[0]
