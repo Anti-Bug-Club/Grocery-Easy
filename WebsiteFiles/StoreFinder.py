@@ -9,7 +9,7 @@ from flask_bootstrap import Bootstrap
 from getItems import *
 
 class getStores():
-  #use any zipcode to get list of stores within 50 miles
+  #use any zipcode to get list of stores within 5 miles
   async def walmartStores(zipCode):
     url = "https://www.walmart.com/orchestra/home/graphql"
     radius = 5
@@ -111,9 +111,9 @@ def index():
   return render_template('index.html')  #render index.html file 
 
 
-@app.route('/products1.html') #render products.html 
-def products1():
-  return render_template('products1.html')
+@app.route('/products.html') #render products.html 
+def products():
+  return render_template('products.html')
   
 @app.route('/zipCode/<string:x>', methods =['GET']) #get zipcode to find closest stores
 async def stores(x):
