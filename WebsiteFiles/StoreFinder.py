@@ -130,8 +130,9 @@ async def stores(x):
   storesData.append(stores)
   #time.sleep(1)
 
-  await getStores.walmartStoreItems() #TEST
+  # await getStores.walmartStoreItems() #TEST
   return render_template('index.html', data = storesData,)
 
 if __name__=='__main__':
-    app.run(host='0.0.0.0', port=8080)
+  app.run(debug=True)
+  # app.run(host='0.0.0.0', port=8080)
