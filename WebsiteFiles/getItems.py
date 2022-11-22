@@ -4,6 +4,8 @@ import json
 
 class getItems():
     def walmartItems(self,itemSearch,storeID):
+
+
         url = f"https://www.walmart.com/orchestra/snb/graphql/Search/0d430070b29087d0816fdde9b3007bc0d6142d39a2537d8a1fd02cb005ea23f8/search?variables=%7B%22id%22%3A%22%22%2C%22dealsId%22%3A%22%22%2C%22query%22%3A%22{itemSearch}%22%2C%22page%22%3A1%2C%22prg%22%3A%22desktop%22%2C%22catId%22%3A%22%22%2C%22facet%22%3A%22%22%2C%22sort%22%3A%22best_match%22%2C%22rawFacet%22%3A%22%22%2C%22seoPath%22%3A%22%22%2C%22ps%22%3A40%2C%22ptss%22%3A%22%22%2C%22trsp%22%3A%22%22%2C%22beShelfId%22%3A%22%22%2C%22recall_set%22%3A%22%22%2C%22module_search%22%3A%22%22%2C%22min_price%22%3A%22%22%2C%22max_price%22%3A%22%22%2C%22storeSlotBooked%22%3A%22%22%2C%22additionalQueryParams%22%3A%7B%22hidden_facet%22%3Anull%2C%22translation%22%3Anull%2C%22isMoreOptionsTileEnabled%22%3Atrue%7D%2C%22searchArgs%22%3A%7B%22query%22%3A%22broccoli%22%2C%22cat_id%22%3A%22%22%2C%22prg%22%3A%22desktop%22%2C%22facet%22%3A%22%22%7D%2C%22fitmentFieldParams%22%3A%7B%22powerSportEnabled%22%3Atrue%7D%2C%22fitmentSearchParams%22%3A%7B%22id%22%3A%22%22%2C%22dealsId%22%3A%22%22%2C%22query%22%3A%22broccoli%22%2C%22page%22%3A1%2C%22prg%22%3A%22desktop%22%2C%22catId%22%3A%22%22%2C%22facet%22%3A%22%22%2C%22sort%22%3A%22best_match%22%2C%22rawFacet%22%3A%22%22%2C%22seoPath%22%3A%22%22%2C%22ps%22%3A40%2C%22ptss%22%3A%22%22%2C%22trsp%22%3A%22%22%2C%22beShelfId%22%3A%22%22%2C%22recall_set%22%3A%22%22%2C%22module_search%22%3A%22%22%2C%22min_price%22%3A%22%22%2C%22max_price%22%3A%22%22%2C%22storeSlotBooked%22%3A%22%22%2C%22additionalQueryParams%22%3A%7B%22hidden_facet%22%3Anull%2C%22translation%22%3Anull%2C%22isMoreOptionsTileEnabled%22%3Atrue%7D%2C%22searchArgs%22%3A%7B%22query%22%3A%22broccoli%22%2C%22cat_id%22%3A%22%22%2C%22prg%22%3A%22desktop%22%2C%22facet%22%3A%22%22%7D%2C%22cat_id%22%3A%22%22%2C%22_be_shelf_id%22%3A%22%22%7D%2C%22enableFashionTopNav%22%3Atrue%2C%22enablePortableFacets%22%3Atrue%2C%22enableFacetCount%22%3Atrue%2C%22fetchMarquee%22%3Atrue%2C%22fetchSkyline%22%3Atrue%2C%22fetchGallery%22%3Afalse%2C%22fetchSbaTop%22%3Atrue%2C%22tenant%22%3A%22WM_GLASS%22%2C%22enableFlattenedFitment%22%3Atrue%2C%22pageType%22%3A%22SearchPage%22%7D"
 
         payload={}
@@ -56,14 +58,15 @@ class getItems():
                                 'imageURL' : i['imageInfo']['thumbnailUrl'],
                                 'currentPrice' : i['priceInfo']['currentPrice']}#can add itemID if needed
 
-        # print(itemID,'\n')
-        # for i in itemInfo:
-        #     print(i, '\n', itemInfo[i],'\n\n\n')
+        print(itemID,'\n')
+        for i in itemInfo:
+            print(i, '\n', itemInfo[i],'\n\n\n')
 
         items = [itemID,itemInfo]
         
-        return items
-    
+        # return items
+        return itemInfo
+
     def targetItems(self,itemSearch,storeID):
 
         url = "https://redsky.target.com/redsky_aggregations/v1/web/plp_search_v2?key=9f36aeafbe60771e321a7cc95a78140772ab3e96&channel=WEB&count=24&default_purchasability_filter=true&include_sponsored=true&keyword=ice+cream&offset=0&page=%2Fs%2Fice+cream&platform=desktop&pricing_store_id=1028&scheduled_delivery_store_id=2147&store_ids=1028%2C2147%2C1033%2C222%2C767&useragent=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_15_7%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F106.0.0.0+Safari%2F537.36&visitor_id=0183A19D5C1D0201BE60A72076D3873E&zip=91792"
@@ -107,25 +110,6 @@ class getItems():
         items = [itemID,itemInfo]
         return items[itemID,itemInfo]
             
-def getWalmartPrices(walmartItems):
-        prices = []
-        for x in walmartItems[1]:   #Item Info
-            #print ("Item: " + x)
-            for y in walmartItems[1][x]:    #Keys of Item Info: shortDescription, imageURL, currentPrice
-                if(y == "currentPrice"):
-                    #print (y,':',walmartItems[1][x][y])
-                    for key, value in walmartItems[1][x][y].items():   #Keys and values of currentPrice
-                        #print("Key= " + key, " : Val= ", value)
-                        if(key == "price"): #Append Int price to list
-                            prices.append(value)
-                            #print(value)    
-         
-        prices.sort()   #Sort list of prices
-        return prices[0]
-
-
-# getitem = getItems()
-# walmartItems = getitem.walmartItems('broccoli', '3133')
-
-# cheapestWalmartPrice = getWalmartPrices(walmartItems)
-# print("Cheapest price found", cheapestWalmartPrice) 
+        
+getitem = getItems()
+print(getitem.walmartItems('broccoli', '3133'))
