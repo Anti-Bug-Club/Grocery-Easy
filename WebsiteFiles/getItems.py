@@ -75,25 +75,27 @@ class getItems():
 
         response = requests.request("GET", url, headers=headers, data=payload)
         searchedItems = json.loads(response.text)
-        print(searchedItems)
+        for i in searchedItems['data']['search']['searchResult']['itemStacks']:
+            searchedItems = i['itemsV2']
 
-        # itemID = {}
-        # itemInfo = {}
 
-        # for num,i in enumerate(searchedItems['data']['search']['products']):
-        #     itemID[num] = i['item']['product_description']['title']
-        #     itemInfo[i['item']['product_description']['title']] = {'price' : i['price']['formatted_current_price'],
-        #                                                             'rating' : i['ratings_and_reviews']['statistics']['rating']['average'],
-        #                                                             'imageURL': i['item']['enrichment']['images'],
-        #                                                             'buyURL': i['item']['enrichment']['buy_url'],
-        #                                                             'description' : i['item']['product_description']['soft_bullets']['bullets'],
-        #                                                             'allergies' : i['item']['product_description']['bullet_descriptions']}
+        itemID = {}
+        itemInfo = {}
 
-        # print(itemID)
-        # for i in itemInfo:
-        #     print(i,'\n',itemInfo[i],'\n\n')
-        # items = [itemID,itemInfo]
-        # return items[itemID,itemInfo]
+        for num,i in enumerate(searchedItems):
+            if 'name' in i.keys():
+                itemID[num] = i['name']
+                itemInfo[i['name']] = {'price' : i['priceInfo']['currentPrice']['price'],
+                                                'imageURL': i['imageInfo'],
+                                                'description' : i['shortDescription']}
+
+        print(itemID)
+        for i in itemInfo:
+            print(i,'\n',itemInfo[i],'\n\n')
+        items = [itemID,itemInfo]
+        return items
+
+
     def targetItems(self,itemSearch,storeID):
 
         url = "https://redsky.target.com/redsky_aggregations/v1/web/plp_search_v2?key=9f36aeafbe60771e321a7cc95a78140772ab3e96&channel=WEB&count=24&default_purchasability_filter=true&include_sponsored=true&keyword=ice+cream&offset=0&page=%2Fs%2Fice+cream&platform=desktop&pricing_store_id=1028&scheduled_delivery_store_id=2147&store_ids=1028%2C2147%2C1033%2C222%2C767&useragent=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_15_7%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F106.0.0.0+Safari%2F537.36&visitor_id=0183A19D5C1D0201BE60A72076D3873E&zip=91792"
@@ -135,7 +137,7 @@ class getItems():
         for i in itemInfo:
             print(i,'\n',itemInfo[i],'\n\n')
         items = [itemID,itemInfo]
-        return items[itemID,itemInfo]
+        return items
             
 def getWalmartPrices(walmartItems):
     print("hi")
@@ -158,5 +160,5 @@ def getWalmartPrices(walmartItems):
 getitem = getItems()
 walmartItems = getitem.walmartItems('broccoli', '3133')
 
-cheapestWalmartPrice = getWalmartPrices(walmartItems)
-print("Cheapest price found", cheapestWalmartPrice) 
+#cheapestWalmartPrice = getWalmartPrices(walmartItems)
+#print("Cheapest price found", cheapestWalmartPrice) 
