@@ -85,13 +85,14 @@ class getStores():
       closestStoresID[num] = location['id']
       closestStoresInfo[location['id']] = location['address']
 
+
     # print(closestStoresID)   #you can use closestStoresID to find the address of the store locations
     # for i in closestStoresInfo:
     #   print(i,'\n',closestStoresInfo[i],'\n\n') #EX: To find the second closest store do closestStoresInfo[closestStoresID['1']]
     #   
     return closestStoresInfo  #Return all the closest walmart stores found
 
-  async def walmartStoreItems(item, storeIDs):
+  async def walmartStoreItems(item, storeIDs, storeAddresses):
     #Item searched at specfic store id 
     itemSearch = getItems()
     walmartSearch = {}
@@ -99,7 +100,7 @@ class getStores():
     #Key is store ID and Value is items 
     for storeID in storeIDs:
        walmartSearch[storeID]= itemSearch.walmartItems(item, storeID) 
-
+    
     #Print results    
     for key, value in walmartSearch.items():   #Keys and values of walmartSearch
       print("Key= " + key, " : Val= ", value)
@@ -132,9 +133,10 @@ async def stores(x):
   }
   storesData.append(stores)
   #time.sleep(1)
-  print(list(walmartStores.keys()))
+
   #Todo: Get user input 
-  await getStores.walmartStoreItems('broccoli', walmartStores.keys())
+  
+  await getStores.walmartStoreItems('broccoli', walmartStores.keys(), walmartStores.values())
   return render_template('index.html', data = storesData,)
 
 if __name__=='__main__':
