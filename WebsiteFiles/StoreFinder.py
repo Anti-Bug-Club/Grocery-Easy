@@ -85,22 +85,25 @@ class getStores():
       closestStoresID[num] = location['id']
       closestStoresInfo[location['id']] = location['address']
 
-
-
     # print(closestStoresID)   #you can use closestStoresID to find the address of the store locations
     # for i in closestStoresInfo:
     #   print(i,'\n',closestStoresInfo[i],'\n\n') #EX: To find the second closest store do closestStoresInfo[closestStoresID['1']]
     #   
     return closestStoresInfo  #Return all the closest walmart stores found
 
-  async def walmartStoreItems():
+  async def walmartStoreItems(item, storeIDs):
     #Item searched at specfic store id 
     itemSearch = getItems()
-    walmartSearch = itemSearch.walmartItems('broccoli', '3133') #(Item Search, StoreID)
-  
-    #Get cheapest price at walmart store 
-    cheapestWalmartPrice = getWalmartPrices(walmartSearch)
-    print("Cheapest price found", cheapestWalmartPrice) 
+    walmartSearch = {}
+
+    #Key is store ID and Value is items 
+    for storeID in storeIDs:
+       walmartSearch[storeID]= itemSearch.walmartItems(item, storeID) 
+
+    #Print results    
+    for key, value in walmartSearch.items():   #Keys and values of walmartSearch
+      print("Key= " + key, " : Val= ", value)
+         
 
 
 app =   Flask(__name__)
@@ -129,8 +132,9 @@ async def stores(x):
   }
   storesData.append(stores)
   #time.sleep(1)
-
-  # await getStores.walmartStoreItems() #TEST
+  print(list(walmartStores.keys()))
+  #Todo: Get user input 
+  await getStores.walmartStoreItems('broccoli', walmartStores.keys())
   return render_template('index.html', data = storesData,)
 
 if __name__=='__main__':
