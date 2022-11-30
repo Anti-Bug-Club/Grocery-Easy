@@ -1,15 +1,19 @@
 # from crypt import methods
 from multiprocessing import context
-from urllib import request
+from flask import request
 from flask import Flask, render_template, url_for, redirect
 import requests
 import json
+import csv
+import re
 from bs4 import BeautifulSoup 
 from flask_bootstrap import Bootstrap
-from getItems import *
+from getItems import getItems
+import asyncio
+import time
 
 class getStores():
-  #use any zipcode to get list of stores within 5 miles
+  #use any zipcode to get list of stores within 50 miles
   async def walmartStores(zipCode):
     url = "https://www.walmart.com/orchestra/home/graphql"
     radius = 5
@@ -86,26 +90,19 @@ class getStores():
       closestStoresInfo[location['id']] = location['address']
 
 
+
     # print(closestStoresID)   #you can use closestStoresID to find the address of the store locations
     # for i in closestStoresInfo:
     #   print(i,'\n',closestStoresInfo[i],'\n\n') #EX: To find the second closest store do closestStoresInfo[closestStoresID['1']]
-    #   
+
+    #BUG Here
+    # itemSearch = getItems()
+    # walmartSearch = itemSearch.walmartItems('broccoli', '3133') #(Item Search, StoreID)
+    # print(walmartSearch)
+    
     return closestStoresInfo  #Return all the closest walmart stores found
 
-  async def walmartStoreItems(item, storeIDs, storeAddresses):
-    #Item searched at specfic store id 
-    itemSearch = getItems()
-    walmartSearch = {}
-
-    #Key is store ID and Value is items 
-    for storeID in storeIDs:
-       walmartSearch[storeID]= itemSearch.walmartItems(item, storeID) 
-    
-    #Print results    
-    for key, value in walmartSearch.items():   #Keys and values of walmartSearch
-      print("Key= " + key, " : Val= ", value)
-         
-
+itemSearch = getItems()
 
 app =   Flask(__name__)
 Bootstrap(app)
@@ -114,10 +111,16 @@ Bootstrap(app)
 def index():
   return render_template('index.html')  #render index.html file 
 
+@app.route('/search')
+def getItems():
+  item = request.args.get('item', 'broccoli')
+  store = request.args.get('store', '3133')
+  walmartSearch = itemSearch.walmartItems(item, store)
+  return render_template('index.html', items = walmartSearch)
 
-@app.route('/products.html') #render products.html 
-def products():
-  return render_template('products.html')
+@app.route('/products1.html') #render products.html 
+def products1():
+  return render_template('products1.html')
   
 @app.route('/zipCode/<string:x>', methods =['GET']) #get zipcode to find closest stores
 async def stores(x):
@@ -133,12 +136,7 @@ async def stores(x):
   }
   storesData.append(stores)
   #time.sleep(1)
-
-  #Todo: Get user input 
-  
-  await getStores.walmartStoreItems('broccoli', walmartStores.keys(), walmartStores.values())
   return render_template('index.html', data = storesData,)
 
 if __name__=='__main__':
-  app.run(debug=True)
-  # app.run(host='0.0.0.0', port=8080)
+    app.run(debug=True)
