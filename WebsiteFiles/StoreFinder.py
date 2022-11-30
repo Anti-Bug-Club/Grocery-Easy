@@ -184,7 +184,7 @@ async def stores(x):
   }
   storesData.append(stores)
   #time.sleep(1)
-  return render_template('index.html', data = storesData,)
+  return render_template('index.html', data = storesData)
 
 if __name__=='__main__':
     app.run(debug=True)
