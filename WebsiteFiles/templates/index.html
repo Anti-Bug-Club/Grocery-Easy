@@ -138,8 +138,8 @@ $(document).ready(function() {
 						aTag.setAttribute("href", "/zipCode/" + String(x));
 					 	formTag.setAttribute("action", "/zipCode/" + String(x));
 
-						//$('#myModal88').modal('hide');
-						getNearestStores(x);
+						$('#myModal88').modal('hide');
+						//getNearestStores(x);
 				
 					  }
 					  else
@@ -147,13 +147,13 @@ $(document).ready(function() {
 					}
 					</script>
 					
-					<h3>Results Test</h3>
+					<!-- <h3>Results Test</h3>
 				
 					{% for d in data: %}
 						<div class="row">
 							{{d.k}} {{d.v}}
 						</div>
-					{% endfor %}
+					{% endfor %} -->
 
 					</body>
 					</html>
@@ -163,7 +163,8 @@ $(document).ready(function() {
 		</div>
 	</div>
 	<script>
-		$('#myModal88').modal('show');
+		if (window.location.href == "http://127.0.0.1:5000/")
+			$('#myModal88').modal('show');
 	</script>
 	<body>
 	
@@ -183,10 +184,10 @@ $(document).ready(function() {
 				</div>
 				<div class="header-cart"> 
 					<div class="my-account">
-						<a href="contact.html"><i class="fa fa-map-marker" aria-hidden="true"></i> CONTACT US</a>						
+						<a onclick="$('#myModal88').modal('show');"><i class="fa fa-map-marker" aria-hidden="true"></i> Zip Code</a>						
 					</div>
 					
-					</div>
+				</div>
 					<div class="clearfix"> </div> 
 				</div> 
 				<div class="clearfix"> </div>
