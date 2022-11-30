@@ -82,24 +82,16 @@ class getStores():
     #Set data to dictionary format
     stores = json.loads(response.text)
 
-
     closestStoresID = {}
     closestStoresInfo = {}
     for num,location in enumerate(stores['data']['nearByNodes']['nodes']):
       closestStoresID[num] = location['id']
       closestStoresInfo[location['id']] = location['address']
 
-
-
     # print(closestStoresID)   #you can use closestStoresID to find the address of the store locations
     # for i in closestStoresInfo:
     #   print(i,'\n',closestStoresInfo[i],'\n\n') #EX: To find the second closest store do closestStoresInfo[closestStoresID['1']]
 
-    #BUG Here
-    # itemSearch = getItems()
-    # walmartSearch = itemSearch.walmartItems('broccoli', '3133') #(Item Search, StoreID)
-    # print(walmartSearch)
-    
     return closestStoresInfo  #Return all the closest walmart stores found
 
   async def targetStores(zipCode):
@@ -123,7 +115,17 @@ class getStores():
       }
 
       response = requests.request("GET", url, headers=headers, data=payload)
-      print(response.text)
+      # print(response.text)
+
+      #Set data to dictionary format
+      stores = json.loads(response.text)
+      closestStoresID = {}
+      closestStoresInfo = {}
+      for num,location in enumerate(stores['data']['nearby_stores']['stores']):
+        closestStoresID[num] = location['store_id']
+        closestStoresInfo[location['store_id']] = location['location_name']
+
+      return closestStoresInfo
 
   async def northGateStores(zipCode):
     radius = 5
@@ -131,8 +133,17 @@ class getStores():
     payload={}
     headers = {}
     response = requests.request("GET", url, headers=headers, data=payload)
+    # print(response.text)
 
-    print(response.text)
+    #Set data to dictionary format
+    stores = json.loads(response.text)
+    closestStoresID = {}
+    closestStoresInfo = {}
+    for num,location in enumerate(stores['items']):
+      closestStoresID[num] = location['id']
+      closestStoresInfo[location['id']] = location['name']
+    
+    return closestStoresInfo
 
   async def walmartStoreItems(item, storeIDs):
     #Item searched at specfic store id 
