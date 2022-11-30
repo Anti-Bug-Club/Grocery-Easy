@@ -1632,12 +1632,18 @@ h3.w3ls-title.w3ls-title1 {
     color: #FFC107; 
 }
 /*-- //offers-page --*/
+
 /*-- contact-page --*/
+
+
+
+
 .contact iframe {
     width: 100%;
     min-height: 15em;
     border: 1px solid #b3b3b3;
     margin-bottom: 4em;
+
 }
 .contact h4 {
     font-size: 1.6em;
@@ -1653,7 +1659,7 @@ h3.w3ls-title.w3ls-title1 {
     font-size: 1em;
     padding: .7em 1em;
     margin-bottom: 1.5em;
-    border: solid 1px #999;
+    border: solid 1x #999;
     -webkit-appearance: none;
     display: inline-block;
 }
@@ -1689,6 +1695,9 @@ h3.w3ls-title.w3ls-title1 {
     background: none;
     color: #f44336;
 }
+
+
+.contact #error
 ::-webkit-input-placeholder {
 	color:#999 !important;
 }
@@ -1766,6 +1775,15 @@ h3.w3ls-title.w3ls-title1 {
     color: #000; 
     font-family: 'Offside', cursive;
 }
+
+
+
+
+
+
+
+
+
 /*-- //card-page --*/
 /*-- help --*/
 .help .header-search {
