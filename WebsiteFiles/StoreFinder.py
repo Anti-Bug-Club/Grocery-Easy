@@ -138,7 +138,7 @@ class getStores():
     for key, value in walmartSearch.items():   #Keys and values of walmartSearch
       print("Key= " + key, " : Val= ", value)
          
-
+itemSearch = getItems()
 
 app =   Flask(__name__)
 Bootstrap(app)
