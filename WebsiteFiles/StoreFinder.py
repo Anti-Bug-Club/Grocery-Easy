@@ -103,7 +103,8 @@ class getStores():
     return closestStoresInfo  #Return all the closest walmart stores found
 
   async def targetStores(zipCode):
-      url = "https://redsky.target.com/redsky_aggregations/v1/web_platform/nearby_stores_v1?limit=20&within=100&place=" + str(zipCode) + "&key=8df66ea1e1fc070a6ea99e942431c9cd67a80f02&channel=WEB&page=%2Fs%2F"
+      radius = 5
+      url = "https://redsky.target.com/redsky_aggregations/v1/web_platform/nearby_stores_v1?limit=20&within=" + str(radius) + "&place=" + str(zipCode) + "&key=8df66ea1e1fc070a6ea99e942431c9cd67a80f02&channel=WEB&page=%2Fs%2F"
       payload={}
       headers = {
         'authority': 'redsky.target.com',
@@ -122,8 +123,16 @@ class getStores():
       }
 
       response = requests.request("GET", url, headers=headers, data=payload)
-
       print(response.text)
+
+  async def northGateStores(zipCode):
+    radius = 5
+    url = "https://api.freshop.com/1/stores?app_key=northgate_markets&distance=" + str(radius) + "&fields=id%2Cname&has_address=true&lang=&q=" + str(zipCode) + "&token=410b2ea32a073f8d7dee641bcfa17647"
+    payload={}
+    headers = {}
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    print(response.text)
 
   async def walmartStoreItems(item, storeIDs):
     #Item searched at specfic store id 
@@ -137,7 +146,8 @@ class getStores():
     #Print results    
     for key, value in walmartSearch.items():   #Keys and values of walmartSearch
       print("Key= " + key, " : Val= ", value)
-         
+
+
 itemSearch = getItems()
 
 app =   Flask(__name__)
@@ -164,6 +174,7 @@ async def stores(x):
   print(x)
   walmartStores =  await getStores.walmartStores(x)
   targetStores = await getStores.targetStores(x)
+  northGateStores = await getStores.northGateStores(x)
 
   # return walmartStores
   storesData = []
