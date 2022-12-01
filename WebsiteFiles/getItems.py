@@ -245,8 +245,8 @@ def getWalmartPrices(walmartItems):
             return 0
 
 
-# getitem = getItems()
-# walmartItems = getitem.walmartItems('broccoli', '3133')
+getitem = getItems()
+walmartItems = getitem.walmartItems('broccoli', '3133')
 # targetItems = getitem.targetItems('juice', '1028')
 #northgateItems = getitem.northgateItems('broccoli','6097')
 
