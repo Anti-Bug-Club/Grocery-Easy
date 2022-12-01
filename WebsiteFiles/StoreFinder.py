@@ -166,15 +166,26 @@ def getItems():
   searchedItems = itemSearch.getAllItemsWithStores(item)
   return render_template('about.html', items = searchedItems)
 
-@app.route('/products1.html') #render products.html 
-def products1():
-  return render_template('products1.html')
+@app.route('/products.html') #render products.html 
+def products():
+  return render_template('products.html')
+
+@app.route('/about.html') #render about.html
+def about():
+  return render_template('about.html')
+
+@app.route('/contact.html') #render contact.html
+def contact():
+  return render_template('contact.html')
   
 @app.route('/zipCode/<string:x>', methods =['GET']) #get zipcode to find closest stores
 async def stores(x):
+  # Zip code 
   x = json.loads(x)
-  print(x)
+
   walmartStores =  await getStores.walmartStores(x)
+  # targetStores = await getStores.targetStores(x)
+  northGateStores = await getStores.northGateStores(x)
 
   # return walmartStores
   storesData = []
