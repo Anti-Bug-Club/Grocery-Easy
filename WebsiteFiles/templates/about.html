@@ -133,33 +133,45 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
+	<script>
+		$('#myModal88').modal('show');
+	</script> 
 	<ul class = "list-parent">	
-		{% for item, detail in items.items()%}
+		{% for item in items%}
 		<li class="items-list">
-			<img src= "{{detail['imageURL']}}" alt="icon" width="200" height="auto" />
+			{% if item['store'] == 'northgate'%}
+			<img src= "{{url_for('static',filename='images/PngItem_405525.png')}}" alt="icon" width="200" height="auto" />
+			{% else %}
+			<img src= "{{item['imageURL']}}" alt="icon" width="200" height="auto" />
 				<!--Item image url goes here-->
+			{% endif %}
+
 			<div class="righttxt">
 				<div class="Item-name"> 
-					{{item}} <!--Item name goes here-->
+					{{item['name']}} <!--Item name goes here-->
 				</div>
 				<div class="Description"> 
 					<ul>
-						{{detail['shortDescription'] | safe}}  <!--Item description goes here-->
+						{{item['description'] | safe}}  <!--Item description goes here-->
 					</ul>
 				</div>
 				<div class="row">
+					{% if item['store'] == 'walmart'%}
 					<div class="column">
 					  <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/walmart_logo_icon_170230.png" alt="logo" width = "100" height = "auto">
-					   <figcaption>{{detail['currentPrice']['priceString']}}</figcaption> <!--price for dif store-->
+					   <figcaption>{{item['price']}}</figcaption> <!--price for dif store-->
 					</div>
+					{% elif item['store'] == 'target'%}
 					<div class="column">
 					  <img src="https://e7.pngegg.com/pngimages/156/169/png-clipart-target-logo-target-corporation-logo-target-icon-logo-text-retail.png" alt="logo" width = "100" height = "auto">
-					  <p>$2.00</p>
+					  <figcaption>{{item['price']}}</figcaption> <!--price for dif store-->
 					</div>
+					{% else %}
 					<div class="column">
-					  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Stater_Bros.svg/1200px-Stater_Bros.svg.png" alt="logo" width = "100" height = "auto">
-					  <p>$1.50</p>
+					  <img src="{{url_for('static',filename='images/PngItem_405525.png')}}" alt="logo" width = "100" height = "auto">
+					  <figcaption>{{item['price']}}</figcaption> <!--price for dif store-->
 					</div>
+					{% endif %}
 				</div>	
 			</div>
 		</li>
