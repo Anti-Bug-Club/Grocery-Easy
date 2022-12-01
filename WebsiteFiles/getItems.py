@@ -2,6 +2,7 @@ from re import I
 import requests
 import json
 
+
 class getItems():
     def walmartItems(self,itemSearch,storeID): #add '%20' between words with spaces for itemSearch
         url = f"https://www.walmart.com/orchestra/snb/graphql/Search/0d430070b29087d0816fdde9b3007bc0d6142d39a2537d8a1fd02cb005ea23f8/search?variables=%7B%22id%22%3A%22%22%2C%22dealsId%22%3A%22%22%2C%22query%22%3A%22{itemSearch}%22%2C%22page%22%3A1%2C%22prg%22%3A%22desktop%22%2C%22catId%22%3A%22%22%2C%22facet%22%3A%22%22%2C%22sort%22%3A%22best_match%22%2C%22rawFacet%22%3A%22%22%2C%22seoPath%22%3A%22%22%2C%22ps%22%3A40%2C%22ptss%22%3A%22%22%2C%22trsp%22%3A%22%22%2C%22beShelfId%22%3A%22%22%2C%22recall_set%22%3A%22%22%2C%22module_search%22%3A%22%22%2C%22min_price%22%3A%22%22%2C%22max_price%22%3A%22%22%2C%22storeSlotBooked%22%3A%22%22%2C%22additionalQueryParams%22%3A%7B%22hidden_facet%22%3Anull%2C%22translation%22%3Anull%2C%22isMoreOptionsTileEnabled%22%3Atrue%7D%2C%22searchArgs%22%3A%7B%22query%22%3A%22broccoli%22%2C%22cat_id%22%3A%22%22%2C%22prg%22%3A%22desktop%22%2C%22facet%22%3A%22%22%7D%2C%22fitmentFieldParams%22%3A%7B%22powerSportEnabled%22%3Atrue%7D%2C%22fitmentSearchParams%22%3A%7B%22id%22%3A%22%22%2C%22dealsId%22%3A%22%22%2C%22query%22%3A%22{itemSearch}%22%2C%22page%22%3A1%2C%22prg%22%3A%22desktop%22%2C%22catId%22%3A%22%22%2C%22facet%22%3A%22%22%2C%22sort%22%3A%22best_match%22%2C%22rawFacet%22%3A%22%22%2C%22seoPath%22%3A%22%22%2C%22ps%22%3A40%2C%22ptss%22%3A%22%22%2C%22trsp%22%3A%22%22%2C%22beShelfId%22%3A%22%22%2C%22recall_set%22%3A%22%22%2C%22module_search%22%3A%22%22%2C%22min_price%22%3A%22%22%2C%22max_price%22%3A%22%22%2C%22storeSlotBooked%22%3A%22%22%2C%22additionalQueryParams%22%3A%7B%22hidden_facet%22%3Anull%2C%22translation%22%3Anull%2C%22isMoreOptionsTileEnabled%22%3Atrue%7D%2C%22searchArgs%22%3A%7B%22query%22%3A%22broccoli%22%2C%22cat_id%22%3A%22%22%2C%22prg%22%3A%22desktop%22%2C%22facet%22%3A%22%22%7D%2C%22cat_id%22%3A%22%22%2C%22_be_shelf_id%22%3A%22%22%7D%2C%22enableFashionTopNav%22%3Afalse%2C%22enablePortableFacets%22%3Atrue%2C%22enableFacetCount%22%3Atrue%2C%22fetchMarquee%22%3Atrue%2C%22fetchSkyline%22%3Atrue%2C%22fetchGallery%22%3Afalse%2C%22fetchSbaTop%22%3Atrue%2C%22tenant%22%3A%22WM_GLASS%22%2C%22enableFlattenedFitment%22%3Afalse%2C%22pageType%22%3A%22SearchPage%22%7D"
@@ -48,15 +49,18 @@ class getItems():
         itemInfo = {}
 
         for num,i in enumerate(searchedItems):
-            if 'name' in i.keys():
-                itemID[num] = i['name']
-                itemInfo[i['name']] = {'price' : i['priceInfo']['currentPrice'],
-                                                'imageURL': i['imageInfo'],
-                                                'description' : i['shortDescription']}
+            try:
+                if 'name' in i.keys():
+                    itemID[num] = i['name']
+                    itemInfo[i['name']] = {'price' : i['priceInfo']['currentPrice'],
+                                                    'imageURL': i['imageInfo'],
+                                                    'description' : i['shortDescription']}
+            except:
+                continue
 
-        print(itemID)
-        for i in itemInfo:
-            print(i,'\n',itemInfo[i],'\n\n')
+        # print(itemID)
+        # for i in itemInfo:
+            # print(i,'\n',itemInfo[i],'\n\n')
         items = [itemID,itemInfo]
         return items
 
@@ -91,17 +95,20 @@ class getItems():
         
 
         for num,i in enumerate(searchedItems['data']['search']['products']):
-            itemID[num] = i['item']['product_description']['title']
-            itemInfo[i['item']['product_description']['title']] = {'price' : i['price']['formatted_current_price'],
-                                                                    'rating' : i['ratings_and_reviews']['statistics']['rating']['average'],
-                                                                    'imageURL': i['item']['enrichment']['images'],
-                                                                    'buyURL': i['item']['enrichment']['buy_url'],
-                                                                    'description' : i['item']['product_description']['soft_bullets']['bullets'],
-                                                                    'allergies' : i['item']['product_description']['bullet_descriptions']}
+            try:
+                itemID[num] = i['item']['product_description']['title']
+                itemInfo[i['item']['product_description']['title']] = {'price' : i['price']['formatted_current_price'],
+                                                                        'rating' : i['ratings_and_reviews']['statistics']['rating']['average'],
+                                                                        'imageURL': i['item']['enrichment']['images'],
+                                                                        'buyURL': i['item']['enrichment']['buy_url'],
+                                                                        'description' : i['item']['product_description']['soft_bullets']['bullets'],
+                                                                        'allergies' : i['item']['product_description']['bullet_descriptions']}
+            except:
+                continue
 
-        print(itemID)
-        for i in itemInfo:
-            print(i,'\n',itemInfo[i],'\n\n')
+        # print(itemID)
+        # for i in itemInfo:
+            # print(i,'\n',itemInfo[i],'\n\n')
         items = [itemID,itemInfo]
         return items
 
@@ -132,22 +139,90 @@ class getItems():
         itemID = {}
         itemInfo = {}
 
-        for i in searchedItems['items']:
-            print(i)
+        # for i in searchedItems['items']:
+            # print(i)
 
         for num,i in enumerate(searchedItems['items']):
+            try:
                 itemID[num] = i['name']
                 itemInfo[i['name']] = {'price' : i['price'],
                                         'buyURL': i['canonical_url']
                 }
 
+            except:
+                continue
+
         
 
-        print(itemID)
-        for i in itemInfo:
-            print(i,'\n',itemInfo[i],'\n\n')
+        # print(itemID)
+        # for i in itemInfo:
+            # print(i,'\n',itemInfo[i],'\n\n')
         items = [itemID,itemInfo]
         return items
+
+    def getAllItemsWithStores(self, search):
+        getitem = getItems()
+        walmartItems = getitem.walmartItems(search, '3133')
+        targetItems = getitem.targetItems(search, '1028')
+        northgateItems = getitem.northgateItems(search,'6097')
+
+        allItems = []
+
+        # adding walmart items to the array
+        for k,v in walmartItems[1].items():
+            entry = v
+            try:
+                # resolving to the common format
+                price = entry['price']['priceString']
+                entry['price'] = price
+                
+            
+                imageURL = entry['imageURL']['thumbnailUrl']
+                entry['imageURL'] = imageURL
+                
+
+                entry['name'] = k
+                entry['store'] = 'walmart'
+                allItems.append(entry) 
+            except:
+                continue
+
+        # adding walmart items to the array
+        for k,v in targetItems[1].items():
+            entry = v
+
+            try:
+
+                imageURL = entry['imageURL']['primary_image_url']
+                entry['imageURL'] = imageURL
+
+                description = '<li>' + '</li><li>'.join(entry['description']) + '</li>'
+                entry['description'] = description
+
+                entry['name'] = k
+                entry['store'] = 'target'
+                allItems.append(entry) 
+            except:
+                continue
+
+
+        # adding walmart items to the array
+        for k,v in northgateItems[1].items():
+            entry = v
+
+            try: 
+                entry['name'] = k
+
+                entry['store'] = 'northgate'
+                allItems.append(entry) 
+            except:
+                continue
+
+        # sorting the items
+        allItems.sort(key=lambda x: eval(x['price'].replace('$', '')) )
+
+        return allItems
+
             
 def getWalmartPrices(walmartItems):
         prices = []
@@ -172,8 +247,13 @@ def getWalmartPrices(walmartItems):
 
 # getitem = getItems()
 # walmartItems = getitem.walmartItems('broccoli', '3133')
-#targetItems = getitem.targetItems('juice', '1028')
+# targetItems = getitem.targetItems('juice', '1028')
 #northgateItems = getitem.northgateItems('broccoli','6097')
 
 # cheapestWalmartPrice = getWalmartPrices(walmartItems)
 # print("Cheapest price found", cheapestWalmartPrice) 
+
+# allitems = getitem.getAllItemsWithStores('broccoli')
+
+# print('\n\n================================')
+# print(*allitems, sep="\n\n")
