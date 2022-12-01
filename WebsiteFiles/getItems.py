@@ -66,7 +66,6 @@ class getItems():
 
 
     def targetItems(self,itemSearch,storeID): #add '+' between words with spaces for itemSearch
-
         url = f"https://redsky.target.com/redsky_aggregations/v1/web/plp_search_v2?key=9f36aeafbe60771e321a7cc95a78140772ab3e96&channel=WEB&count=24&default_purchasability_filter=true&include_sponsored=true&keyword={itemSearch}&offset=0&page=%2Fs%2F{itemSearch}&platform=desktop&pricing_store_id={storeID}&scheduled_delivery_store_id=2147&store_ids={storeID}%2C2147%2C1033%2C222%2C767&useragent=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_15_7%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F107.0.0.0+Safari%2F537.36&visitor_id=0183A19D5C1D0201BE60A72076D3873E&zip=91792"
 
         payload={}
@@ -74,7 +73,7 @@ class getItems():
         'authority': 'redsky.target.com',
         'accept': 'application/json',
         'accept-language': 'en-US,en;q=0.9',
-        'cookie': 'visitorId=0183A19D5C1D0201BE60A72076D3873E; UserLocation=91792|34.020|-117.900|CA|US; crl8.fpcuid=1e3c6df0-d017-4c02-98b8-3171eed4203c; fiatsCookie=DSI_1028|DSN_West%20Covina|DSZ_91791; TealeafAkaSid=TsftBg2-nhHB7Oq9zQ2a-uOO6FTqItvY; sapphire=1; ci_pixmgr=other; egsSessionId=8bb32476-d57b-401c-9ad4-56f4325344c2; accessToken=eyJraWQiOiJlYXMyIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI5NDkzMDRiNC1jOGQ1LTQyY2YtOWUwMC01NzQ5OTU5OTRiMzIiLCJpc3MiOiJNSTYiLCJleHAiOjE2Njk4NjE1MDMsImlhdCI6MTY2OTc3NTEwMywianRpIjoiVEdULmNhYWE3YzQwYmI5YjQ4MDI4NjRiZDk2OWFiYjE3ZTkyLWwiLCJza3kiOiJlYXMyIiwic3V0IjoiRyIsImRpZCI6ImNhYWJhYTlkNmRhY2Q0MTkyZTZmMzRjN2FhMWNiMjNhZTY3ZmE2ZjhhYjc5MzcxYWUyNGQwYjk4YWVhMTkyMmEiLCJzY28iOiJlY29tLm5vbmUsb3BlbmlkIiwiY2xpIjoiZWNvbS13ZWItMS4wLjAiLCJhc2wiOiJMIn0.uD5WdqBXlEWtnuKSu3g3K0UrFrvUOKLu-gjLGk01wlwxquX3WLTg3_7nNXt3lZu3iRcRBs03VGgeR02GhSKMZqnu1cg6bPUEoUjK6690OWo-74HjAKnUF6fSoa_30rWvqVSOPYLfXoSEBOP7nqQvEjj-N7R1SLOZEegFWT8Kpj4JT-kPHJ1rGk2hgaThs_i99CCK10oJuYC6y9fjgLQpfiIsI3S9eCMtLyd4KGDBjQ_4Q6lfb6IxYbjMqZRk0ziMUMK0nIUrBe8sCuzlqFw_JQqAec_EwFv_BRaD_vXJaiWXQ_ONfteQQudB8D4BjpgN-p-ypraBzqe_uIpBoHEZqQ; idToken=eyJhbGciOiJub25lIn0.eyJzdWIiOiI5NDkzMDRiNC1jOGQ1LTQyY2YtOWUwMC01NzQ5OTU5OTRiMzIiLCJpc3MiOiJNSTYiLCJleHAiOjE2Njk4NjE1MDMsImlhdCI6MTY2OTc3NTEwMywiYXNzIjoiTCIsInN1dCI6IkciLCJjbGkiOiJlY29tLXdlYi0xLjAuMCIsInBybyI6eyJmbiI6bnVsbCwiZW0iOm51bGwsInBoIjpmYWxzZSwibGVkIjpudWxsLCJsdHkiOmZhbHNlfX0.; refreshToken=OA6GmW4Hx2Cj5Cl9cHIguczEkkZR1xH3GhQoQ8gLIxADpa4hq5hiCK5UFl3GIviY3A1_phHbzuhmclzSB7Trow; _mitata=NDk4MjJiMTczYzY3OGEwMWMwMmRlY2FhOWYwNDQwMzhmMDNhODAxN2RlOTRlYTMwMjQzOWNkNTFiZTM3Mzk5Yw==_/@#/1669775167_/@#/cGJSItcsvHOo0EJ6_/@#/YWU0MWU0NTU2MGQwODliMGRhZjE3NTgxYWNjMmUzMWVlMzExMmU5OWRjZjk4MGMxZGZiNzA3YWM1NTA4ZDRhMg==_/@#/000; ffsession={%22sessionHash%22:%221413e57a50e6261669673591374%22%2C%22prevPageName%22:%22search:%20search%20results%22%2C%22prevPageType%22:%22search:%20search%20results%22%2C%22prevPageUrl%22:%22https://www.target.com/s?searchTerm=broccoli%22%2C%22sessionHit%22:5%2C%22prevSearchTerm%22:%22broccoli%22}',
+        'cookie': 'visitorId=0183A19D5C1D0201BE60A72076D3873E; UserLocation=91792|34.020|-117.900|CA|US; crl8.fpcuid=1e3c6df0-d017-4c02-98b8-3171eed4203c; fiatsCookie=DSI_1028|DSN_West%20Covina|DSZ_91791; TealeafAkaSid=TsftBg2-nhHB7Oq9zQ2a-uOO6FTqItvY; sapphire=1; ci_pixmgr=other; egsSessionId=df2c627d-c6b6-47d3-b402-bed6640c8b6f; _mitata=ZGUyMjA4MjU0Yzg3Nzc3ZWNkNjg2NjY3MTljMGZlZjBlNmZiODAyYjJkY2E3NWVkMmM4MmQwYTI1MzY2MjllZA==_/@#/1669865638_/@#/cmFYdHjo36Ci81ID_/@#/MGU4NTlkZWFlY2JlMjZkNDUwNGZkNzkzOTBmNWRhNDFmOTJkN2I2YzQwOTliZDk3ZGY4YzQ0YzJmZDhmNzY5MA==_/@#/000; ffsession={%22sessionHash%22:%221413e57a50e6261669673591374%22%2C%22prevPageName%22:%22search:%20search%20results%22%2C%22prevPageType%22:%22search:%20search%20results%22%2C%22prevPageUrl%22:%22https://www.target.com/s?searchTerm=dole+pineapple%22%2C%22sessionHit%22:10%2C%22prevSearchTerm%22:%22dole%20pineapple%22}; accessToken=eyJraWQiOiJlYXMyIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI5NDkzMDRiNC1jOGQ1LTQyY2YtOWUwMC01NzQ5OTU5OTRiMzIiLCJpc3MiOiJNSTYiLCJleHAiOjE2Njk5NTIwMjQsImlhdCI6MTY2OTg2NTYyNCwianRpIjoiVEdULjAyYmM2N2NkZDA4MDQ4NmNiNzVmNWM0YWQ4MmM0ZGM3LWwiLCJza3kiOiJlYXMyIiwic3V0IjoiRyIsImRpZCI6ImNhYWJhYTlkNmRhY2Q0MTkyZTZmMzRjN2FhMWNiMjNhZTY3ZmE2ZjhhYjc5MzcxYWUyNGQwYjk4YWVhMTkyMmEiLCJzY28iOiJlY29tLm5vbmUsb3BlbmlkIiwiY2xpIjoiZWNvbS13ZWItMS4wLjAiLCJhc2wiOiJMIn0.VM_c08lpuoXIhglc8EqokN-1ae48h7wv7Nw6J1DyKIsQRftU5gaRMvmEizIQukdIFCpQghBLupjOG4ROAiUNzLl3gvhucnQ9M0M6niNIeQPuF2vVjVfI7j_lUMX5tE7PhxGESHnRjD3Y1q4lNwjgSJj1FI6KFTVYY6ImzMBTT6P1ZnASlZKj85vBf74jgnbVa6szK_19Ob5EMykotl9m05-HX_wJlPT2_SzGTf-ew_gLECdMb16Cf5PnfaOW4ihIFSZhDqTr2sE2Mq0wHbKhjmFWcMLge4bfe4pNFIgWGERt1mXmAXu2pyJp-GhoPxM6fWpT4nYBeF-xnkCTRWhdwA; idToken=eyJhbGciOiJub25lIn0.eyJzdWIiOiI5NDkzMDRiNC1jOGQ1LTQyY2YtOWUwMC01NzQ5OTU5OTRiMzIiLCJpc3MiOiJNSTYiLCJleHAiOjE2Njk5NTIwMjQsImlhdCI6MTY2OTg2NTYyNCwiYXNzIjoiTCIsInN1dCI6IkciLCJjbGkiOiJlY29tLXdlYi0xLjAuMCIsInBybyI6eyJmbiI6bnVsbCwiZW0iOm51bGwsInBoIjpmYWxzZSwibGVkIjpudWxsLCJsdHkiOmZhbHNlfX0.; refreshToken=1jfEvl9ldn8kqtl54KqUsEwovYOG-axNXy-vZXilQ2pAkIq6BdUdfFjAEXOsLNZ2T6GZRjV4in5udyGY5bgbBQ',
         'origin': 'https://www.target.com',
         'referer': f'https://www.target.com/s?searchTerm={itemSearch}',
         'sec-ch-ua': '"Google Chrome";v="107", "Chromium";v="107", "Not=A?Brand";v="24"',
@@ -93,7 +92,6 @@ class getItems():
         itemID = {}
         itemInfo = {}
         
-
         for num,i in enumerate(searchedItems['data']['search']['products']):
             try:
                 itemID[num] = i['item']['product_description']['title']
@@ -111,6 +109,7 @@ class getItems():
             # print(i,'\n',itemInfo[i],'\n\n')
         items = [itemID,itemInfo]
         return items
+
 
     def northgateItems(self,itemSearch,storeID): #add a '%20' as a space for itemSearch
 
@@ -246,8 +245,8 @@ def getWalmartPrices(walmartItems):
 
 
 getitem = getItems()
-walmartItems = getitem.walmartItems('broccoli', '3133')
-# targetItems = getitem.targetItems('juice', '1028')
+#walmartItems = getitem.walmartItems('broccoli', '3133')
+#targetItems = getitem.targetItems('juice', '1028')
 #northgateItems = getitem.northgateItems('broccoli','6097')
 
 # cheapestWalmartPrice = getWalmartPrices(walmartItems)
