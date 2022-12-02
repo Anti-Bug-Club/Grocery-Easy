@@ -121,10 +121,10 @@ class getStores():
 
         response = requests.request("GET", url, headers=headers, data=payload)
 
-
-
         #Set data to dictionary format
         stores = json.loads(response.text)
+        print(stores)
+
         closestStoresID = {}
         closestStoresInfo = {}
         for num,location in enumerate(stores['data']['nearby_stores']['stores']):
@@ -139,12 +139,17 @@ class getStores():
         payload={}
         headers = {}
         response = requests.request("GET", url, headers=headers, data=payload)
-        print(response.text)
+        # print(response.text)
 
-      #Set data to dictionary format
+        #Set data to dictionary format
         stores = json.loads(response.text)
         closestStoresID = {}
         closestStoresInfo = {}
+
+        #Check if there are any stores that exist
+        if(stores["total"] == 0):
+          return 0
+
         for num,location in enumerate(stores['items']):
           closestStoresID[num] = location['id']
           closestStoresInfo[location['id']] = location['name']
@@ -160,7 +165,7 @@ Bootstrap(app)
 def index():
   return render_template('index.html')  #render index.html file 
 
-@app.route('/search')
+@app.route('/search/')
 def getItems():
   item = request.args.get('item', 'broccoli')
   searchedItems = itemSearch.getAllItemsWithStores(item)
@@ -186,6 +191,7 @@ async def stores(x):
   walmartStores =  await getStores.walmartStores(x)
   # targetStores = await getStores.targetStores(x)
   northGateStores = await getStores.northGateStores(x)
+  print(northGateStores)
 
   # return walmartStores
   storesData = []
