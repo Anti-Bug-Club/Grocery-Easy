@@ -77,25 +77,24 @@ class getStores():
 
     #Request store list from url 
     response = requests.request("POST", url, headers=headers, data=payload)
-  
+
     #Set data to dictionary format
     stores = json.loads(response.text)
+    print(stores)
 
     #Check if there are any stores that exist
-    if stores["errors"]:
+    if "errors" in stores:
       return 0
-
+   
     closestStoresID = {}
     closestStoresInfo = {}
     for num,location in enumerate(stores['data']['nearByNodes']['nodes']):
       closestStoresID[num] = location['id']
       closestStoresInfo[location['id']] = location['address']
 
-
-
-    # print(closestStoresID)   #you can use closestStoresID to find the address of the store locations
-    # for i in closestStoresInfo:
-    #   print(i,'\n',closestStoresInfo[i],'\n\n') #EX: To find the second closest store do closestStoresInfo[closestStoresID['1']]  
+    print(closestStoresID)   #you can use closestStoresID to find the address of the store locations
+    for i in closestStoresInfo:
+      print(i,'\n',closestStoresInfo[i],'\n\n') #EX: To find the second closest store do closestStoresInfo[closestStoresID['1']]  
     return closestStoresInfo  #Return all the closest walmart stores found
 
   async def aldiStores(zipCode):
@@ -196,8 +195,8 @@ async def stores(x):
   x = json.loads(x)
 
   walmartStores =  await getStores.walmartStores(x)
-  aldiStores = await getStores.aldiStores(x)
-  northGateStores = await getStores.northGateStores(x)
+  # aldiStores = await getStores.aldiStores(x)
+  # northGateStores = await getStores.northGateStores(x)
 
   # return walmartStores
   storesData = []
