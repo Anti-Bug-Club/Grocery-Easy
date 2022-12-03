@@ -77,7 +77,7 @@ class getItems():
             'authority': 'redsky.target.com',
             'accept': 'application/json',
             'accept-language': 'en-US,en;q=0.9',
-            'cookie': 'visitorId=0183A19D5C1D0201BE60A72076D3873E; UserLocation=91792|34.020|-117.900|CA|US; crl8.fpcuid=1e3c6df0-d017-4c02-98b8-3171eed4203c; fiatsCookie=DSI_1028|DSN_West%20Covina|DSZ_91791; TealeafAkaSid=TsftBg2-nhHB7Oq9zQ2a-uOO6FTqItvY; sapphire=1; ci_pixmgr=other; egsSessionId=df2c627d-c6b6-47d3-b402-bed6640c8b6f; _mitata=ZGUyMjA4MjU0Yzg3Nzc3ZWNkNjg2NjY3MTljMGZlZjBlNmZiODAyYjJkY2E3NWVkMmM4MmQwYTI1MzY2MjllZA==_/@#/1669865638_/@#/cmFYdHjo36Ci81ID_/@#/MGU4NTlkZWFlY2JlMjZkNDUwNGZkNzkzOTBmNWRhNDFmOTJkN2I2YzQwOTliZDk3ZGY4YzQ0YzJmZDhmNzY5MA==_/@#/000; ffsession={%22sessionHash%22:%221413e57a50e6261669673591374%22%2C%22prevPageName%22:%22search:%20search%20results%22%2C%22prevPageType%22:%22search:%20search%20results%22%2C%22prevPageUrl%22:%22https://www.target.com/s?searchTerm=dole+pineapple%22%2C%22sessionHit%22:10%2C%22prevSearchTerm%22:%22dole%20pineapple%22}; accessToken=eyJraWQiOiJlYXMyIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI5NDkzMDRiNC1jOGQ1LTQyY2YtOWUwMC01NzQ5OTU5OTRiMzIiLCJpc3MiOiJNSTYiLCJleHAiOjE2Njk5NTIwMjQsImlhdCI6MTY2OTg2NTYyNCwianRpIjoiVEdULjAyYmM2N2NkZDA4MDQ4NmNiNzVmNWM0YWQ4MmM0ZGM3LWwiLCJza3kiOiJlYXMyIiwic3V0IjoiRyIsImRpZCI6ImNhYWJhYTlkNmRhY2Q0MTkyZTZmMzRjN2FhMWNiMjNhZTY3ZmE2ZjhhYjc5MzcxYWUyNGQwYjk4YWVhMTkyMmEiLCJzY28iOiJlY29tLm5vbmUsb3BlbmlkIiwiY2xpIjoiZWNvbS13ZWItMS4wLjAiLCJhc2wiOiJMIn0.VM_c08lpuoXIhglc8EqokN-1ae48h7wv7Nw6J1DyKIsQRftU5gaRMvmEizIQukdIFCpQghBLupjOG4ROAiUNzLl3gvhucnQ9M0M6niNIeQPuF2vVjVfI7j_lUMX5tE7PhxGESHnRjD3Y1q4lNwjgSJj1FI6KFTVYY6ImzMBTT6P1ZnASlZKj85vBf74jgnbVa6szK_19Ob5EMykotl9m05-HX_wJlPT2_SzGTf-ew_gLECdMb16Cf5PnfaOW4ihIFSZhDqTr2sE2Mq0wHbKhjmFWcMLge4bfe4pNFIgWGERt1mXmAXu2pyJp-GhoPxM6fWpT4nYBeF-xnkCTRWhdwA; idToken=eyJhbGciOiJub25lIn0.eyJzdWIiOiI5NDkzMDRiNC1jOGQ1LTQyY2YtOWUwMC01NzQ5OTU5OTRiMzIiLCJpc3MiOiJNSTYiLCJleHAiOjE2Njk5NTIwMjQsImlhdCI6MTY2OTg2NTYyNCwiYXNzIjoiTCIsInN1dCI6IkciLCJjbGkiOiJlY29tLXdlYi0xLjAuMCIsInBybyI6eyJmbiI6bnVsbCwiZW0iOm51bGwsInBoIjpmYWxzZSwibGVkIjpudWxsLCJsdHkiOmZhbHNlfX0.; refreshToken=1jfEvl9ldn8kqtl54KqUsEwovYOG-axNXy-vZXilQ2pAkIq6BdUdfFjAEXOsLNZ2T6GZRjV4in5udyGY5bgbBQ',
+            'cookie': 'visitorId=0183A19D5C1D0201BE60A72076D3873E; UserLocation=91792|34.020|-117.900|CA|US; crl8.fpcuid=1e3c6df0-d017-4c02-98b8-3171eed4203c; fiatsCookie=DSI_1028|DSN_West%20Covina|DSZ_91791; TealeafAkaSid=TsftBg2-nhHB7Oq9zQ2a-uOO6FTqItvY; sapphire=1; ci_pixmgr=other; accessToken=eyJraWQiOiJlYXMyIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI5NDkzMDRiNC1jOGQ1LTQyY2YtOWUwMC01NzQ5OTU5OTRiMzIiLCJpc3MiOiJNSTYiLCJleHAiOjE2NzAwNTAxMDcsImlhdCI6MTY2OTk2MzcwNywianRpIjoiVEdULmI4ZjA4ZmQxOGZkZjRlY2JiYTA0YTEyNmU1YTY3NGMxLWwiLCJza3kiOiJlYXMyIiwic3V0IjoiRyIsImRpZCI6ImNhYWJhYTlkNmRhY2Q0MTkyZTZmMzRjN2FhMWNiMjNhZTY3ZmE2ZjhhYjc5MzcxYWUyNGQwYjk4YWVhMTkyMmEiLCJzY28iOiJlY29tLm5vbmUsb3BlbmlkIiwiY2xpIjoiZWNvbS13ZWItMS4wLjAiLCJhc2wiOiJMIn0.mJh-_L0GsYVadz7q0ja8OFiv4RAfAPCVAYCKzEJsnOVZxU7LJ76tt5eEnyQs_CV3VRwoVC0ooliwD8pS6nvpxS97ZPjmT44iNXbQlFIuKcgSTVybN0bQs3Y1J5mGgN8tLntZQtoZ9QPfgnHLeKpLvumJUTWkqrJO-XLN1y7jN8GK4M-stGE0MXVD1HSPhycvk_qMoGRnxbGTjPL1NxF7AGCxQ1AFbZHoY4MX2PNo8SNVwUB7FYB_34obkpA_hpBqUAP9xy9jES9_al5UYFJQf_hXWWxQbcEjsGRLEqqUJF0h47ECvD3r59gKdRe8TJjsFVkbSq4fKd-hXB384A_afw; idToken=eyJhbGciOiJub25lIn0.eyJzdWIiOiI5NDkzMDRiNC1jOGQ1LTQyY2YtOWUwMC01NzQ5OTU5OTRiMzIiLCJpc3MiOiJNSTYiLCJleHAiOjE2NzAwNTAxMDcsImlhdCI6MTY2OTk2MzcwNywiYXNzIjoiTCIsInN1dCI6IkciLCJjbGkiOiJlY29tLXdlYi0xLjAuMCIsInBybyI6eyJmbiI6bnVsbCwiZW0iOm51bGwsInBoIjpmYWxzZSwibGVkIjpudWxsLCJsdHkiOmZhbHNlfX0.; refreshToken=kmgHOb2lcho9andTwebFGK0wQuh0Sp78nh_0sZs2WpI6zc1_a-F5p6vOoMqHpnrT56nQHHM-LfNDHDc_CegLhw; _mitata=ZDk5MzliYWQ0Y2E5ZDYzYWYyNGNiOWIzOWViMDZhOGE2OTliODU0MjZiMWUwZWJlNDcxODcyM2EyMmQ4NDkwNA==_/@#/1670035387_/@#/cVhYknpFixKwW50E_/@#/OGZkZjBjMjc4MzczNjE3ZGFhM2FiNGQyNjY0MDRkNmU1MDYyMDY4Yzk2OTY2ZWUzMzY4YTFjOTk2NjRkYWVjMg==_/@#/000; ffsession={%22sessionHash%22:%221413e57a50e6261669673591374%22%2C%22prevPageName%22:%22search:%20search%20results%22%2C%22prevPageType%22:%22search:%20search%20results%22%2C%22prevPageUrl%22:%22https://www.target.com/s?searchTerm=dole+pineapple%22%2C%22sessionHit%22:12%2C%22prevSearchTerm%22:%22dole%20pineapple%22}',
             'origin': 'https://www.target.com',
             'referer': f'https://www.target.com/s?searchTerm={itemSearch}',
             'sec-ch-ua': '"Google Chrome";v="107", "Chromium";v="107", "Not=A?Brand";v="24"',
@@ -107,6 +107,7 @@ class getItems():
                                                                             'allergies' : i['item']['product_description']['bullet_descriptions']}
                 except:
                     continue
+
 
             # print(itemID)
             # for i in itemInfo:
@@ -159,7 +160,7 @@ class getItems():
 
             
 
-            print(itemID)
+            # print(itemID)
             # for i in itemInfo:
                 # print(i,'\n',itemInfo[i],'\n\n')
             items = [itemID,itemInfo]
