@@ -77,11 +77,13 @@ class getStores():
 
     #Request store list from url 
     response = requests.request("POST", url, headers=headers, data=payload)
-    # print(response.text)
-
+  
     #Set data to dictionary format
     stores = json.loads(response.text)
 
+    #Check if there are any stores that exist
+    if stores["errors"]:
+      return 0
 
     closestStoresID = {}
     closestStoresInfo = {}
@@ -93,45 +95,45 @@ class getStores():
 
     # print(closestStoresID)   #you can use closestStoresID to find the address of the store locations
     # for i in closestStoresInfo:
-    #   print(i,'\n',closestStoresInfo[i],'\n\n') #EX: To find the second closest store do closestStoresInfo[closestStoresID['1']]
-
-  
-    
+    #   print(i,'\n',closestStoresInfo[i],'\n\n') #EX: To find the second closest store do closestStoresInfo[closestStoresID['1']]  
     return closestStoresInfo  #Return all the closest walmart stores found
 
-  async def targetStores(zipCode):
+  async def aldiStores(zipCode):
         radius = 5
-        url = "https://redsky.target.com/redsky_aggregations/v1/web_platform/nearby_stores_v1?limit=20&within=" + str(radius) + "&place=" + str(zipCode) + "&key=8df66ea1e1fc070a6ea99e942431c9cd67a80f02&channel=WEB&page=%2Fs%2F"
+        url = "https://stores.aldi.us/stores?q=" + str(zipCode) + "&r=" + str(radius) + "&qp=" + str(zipCode) + "&l=en"
         payload={}
         headers = {
-          'authority': 'redsky.target.com',
+          'authority': 'stores.aldi.us',
           'accept': 'application/json',
           'accept-language': 'en-US,en;q=0.9',
-          'cookie': 'TealeafAkaSid=3Yc2hZo4wdDLVmdHZNVs6bkmyn0Gxiok; visitorId=0184C64336400201BE6378F3B11880D6; sapphire=1; UserLocation=91790|34.070|-117.950|CA|US; egsSessionId=2ef64ca4-d651-40c5-b220-c22b0bf60fdd; accessToken=eyJraWQiOiJlYXMyIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI4NzFiZWY2Ni04NGQyLTRkODMtYWFiZC0yYmQzMWUwMGU3YWMiLCJpc3MiOiJNSTYiLCJleHAiOjE2Njk4NjAwMDUsImlhdCI6MTY2OTc3MzYwNSwianRpIjoiVEdULmU1Y2ZiOGE0NjQ2NDRmODJhOTMxODBlZWM4Yjg0Y2NhLWwiLCJza3kiOiJlYXMyIiwic3V0IjoiRyIsImRpZCI6IjZmOTQ1MWQzMTRlNzI0ZjA1NWVlMDg4MTJiYTg1ZTIyYjBjNmE3ZGY3MWU4MGUxMDlmNWNiZGMyY2VjOTU1ZTkiLCJzY28iOiJlY29tLm5vbmUsb3BlbmlkIiwiY2xpIjoiZWNvbS13ZWItMS4wLjAiLCJhc2wiOiJMIn0.peOvj-yoUv16-zvOUtICK5l5mS0N1XfaxTfkqrG2-EuB6gzuXd8UL7sR3n15Kc_mTZ7-9gPSveRG97kgtbvisSbvBa2-duS2lKoGPWcNamnz6nvmisGqwvHA3LiMl9MbP4QYSfDuKcH9aBRhMs7qm8mUs4Gw1Cw67VeDFpWoDbX8sf21dhSOoSqi7d6V0HcW6BfcTWntdvUZ_z1fsBoiblnhA_c4SioI_wm_LCFmTYyj5xF4oTBMWpKnu874LD0qCZ1LcjdMnPJOW_xW-mQ01ZKXyYCGrseLIiw0ivjvoKb7Nzfd-3ZpDZlGSyY-clqBwcJYtosjbIVwHOdQf0foOQ; idToken=eyJhbGciOiJub25lIn0.eyJzdWIiOiI4NzFiZWY2Ni04NGQyLTRkODMtYWFiZC0yYmQzMWUwMGU3YWMiLCJpc3MiOiJNSTYiLCJleHAiOjE2Njk4NjAwMDUsImlhdCI6MTY2OTc3MzYwNSwiYXNzIjoiTCIsInN1dCI6IkciLCJjbGkiOiJlY29tLXdlYi0xLjAuMCIsInBybyI6eyJmbiI6bnVsbCwiZW0iOm51bGwsInBoIjpmYWxzZSwibGVkIjpudWxsLCJsdHkiOmZhbHNlfX0.; refreshToken=dBQs2t5KTNdlYOvvmtvK9crePp9m5O64tlTr13uVEcsif_x0-A7xKiSiW5IamzQhcnUsmCCJzaC1SkfWANFIYg; fiatsCookie=DSI_1033|DSN_Baldwin%20Park|DSZ_91706; __gads=ID=9dc0e100053d6526:T=1669773605:S=ALNI_MYbTgL-doQ2Z2njBhmLgLu_DwHzqg; __gpi=UID=0000090805556266:T=1669773605:RT=1669773605:S=ALNI_MbrHnmao9jxdJuHWJmnUdg01mpM6g; _mitata=M2Q1NjNjZjZjZWJkYzljYjI0M2E5NTFlZmZlY2MwZWZmY2E4ZDc1ZTczODBhNWY5YTUwY2EwMTAxZDE1NjZkMg==_/@#/1669774112_/@#/crteAngtSv6P95p5_/@#/NDQ1MmFlZDgwOGE3ZjAxYWE5OWYxZTg4MGNmMDkxNTNkODA5ZGJiZDVlYmFmOTI2Y2MxOWYxNDY2ZGQ3YTgzNg==_/@#/000; ffsession={%22sessionHash%22:%2263d55700f64f91669773605935%22%2C%22prevPageName%22:%22store%20locator:%20find%20stores%22%2C%22prevPageType%22:%22store%20locator%22%2C%22prevPageUrl%22:%22https://www.target.com/store-locator/find-stores%22%2C%22sessionHit%22:13}; _mitata=ZmJiMGY4MzBiODkyMDdmYWE0MzcxN2ZkOTg2NWMxYzdlMjA5NThmNDBiNTNlOWZhMzYxOWVmZjcyYmUxZjZhZg==_/@#/1669775209_/@#/crteAngtSv6P95p5_/@#/M2Y3NjQ4M2U5Mjc3YmQzNDU4ZTIwNTQyYTk4OGU5M2FlNDdlOWJjZmUxNDE0YTU4NmFlMWE5MTdlYjc5YmUxZg==_/@#/000',
-          'origin': 'https://www.target.com',
-          'referer': 'https://www.target.com/store-locator/find-stores/los%20angeles,ca',
-          'sec-ch-ua': '"Google Chrome";v="107", "Chromium";v="107", "Not=A?Brand";v="24"',
+          'cookie': '__cf_bm=bzqXDascZGoqKN45owb6P3XEKBTq2MRpyCoa4LbjZiw-1670095827-0-AYArX4WSppmYQt2UqTj5G4BOHvFrcgrbTYQj3g92amYO5Q4FINXdb5YpnKV2Q/atL5anqLIkkPhWPUszWaZjweM=; at_check=true; AMCVS_95446750574EBBDF7F000101%40AdobeOrg=1; AMCV_95446750574EBBDF7F000101%40AdobeOrg=-2121179033%7CMCIDTS%7C19330%7CMCMID%7C69777938697029491114189929019216049195%7CMCAAMLH-1670700634%7C9%7CMCAAMB-1670700634%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1670103034s%7CNONE%7CMCAID%7CNONE%7CvVersion%7C5.3.0; s_vnc365=1701631835062%26vn%3D1; s_ivc=true; s_cc=true; gpv_pn=%2Fstores; mbox=session#dcb28001434f4600ac7e44dbd3eea50b#1670097720|PC#dcb28001434f4600ac7e44dbd3eea50b.35_0#1733340660; s_nr365=1670095898362-New; s_sq=aldis.aldi.us-prod%3D%2526c.%2526a.%2526activitymap.%2526page%253D%25252Fstores%2526link%253DSubmit%252520a%252520search.%2526region%253Dsearch-form%2526pageIDType%253D1%2526.activitymap%2526.a%2526.c%2526pid%253D%25252Fstores%2526pidt%253D1%2526oid%253DSubmit%252520a%252520search.%2526oidt%253D3%2526ot%253DSUBMIT; __cf_bm=sTHF7DGR.DTS.sNpiJlRmiQROgb6tw9rx4S503C0I9s-1670096046-0-AQrBjmdHhJslhTIG4YjGA8IVDVwarH0PfOAs0p2wpQwAjYyQLyUCLo7jjoZ16HetgqqZzwn3HfrwSyamvmH8nMs=',
+          'referer': 'https://stores.aldi.us/stores?r=' + str(radius) + '&l=en&q=' + str(zipCode),
+          'sec-ch-ua': '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
           'sec-ch-ua-mobile': '?0',
           'sec-ch-ua-platform': '"Windows"',
           'sec-fetch-dest': 'empty',
           'sec-fetch-mode': 'cors',
-          'sec-fetch-site': 'same-site',
-          'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'
+          'sec-fetch-site': 'same-origin',
+          'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
         }
 
         response = requests.request("GET", url, headers=headers, data=payload)
 
         #Set data to dictionary format
         stores = json.loads(response.text)
-        print(stores)
+
+        #Check if there are any stores that exist
+        if(stores["response"]["count"] == 0):
+          return 0
 
         closestStoresID = {}
         closestStoresInfo = {}
-        for num,location in enumerate(stores['data']['nearby_stores']['stores']):
-          closestStoresID[num] = location['store_id']
-          closestStoresInfo[location['store_id']] = location['location_name']
+        for num,location in enumerate(stores['response']['entities']):
+          closestStoresID[num] = location['profile']['c_internalALDIID']
+          closestStoresInfo[location['profile']["c_internalALDIID"]] = location['profile']['c_locationName']
 
-        return closestStoresInfo
+        print(closestStoresInfo)
+        return closestStoresInfo  #Return all the closest Aldis stores found
 
   async def northGateStores(zipCode):
         radius = 5
@@ -139,10 +141,15 @@ class getStores():
         payload={}
         headers = {}
         response = requests.request("GET", url, headers=headers, data=payload)
-        # print(response.text)
 
         #Set data to dictionary format
         stores = json.loads(response.text)
+        print(stores)
+
+        # #Check if there are any stores that exist
+        # if(stores["response"]["count"] == 0):
+        #   return 0
+
         closestStoresID = {}
         closestStoresInfo = {}
 
@@ -189,16 +196,15 @@ async def stores(x):
   x = json.loads(x)
 
   walmartStores =  await getStores.walmartStores(x)
-  # targetStores = await getStores.targetStores(x)
+  aldiStores = await getStores.aldiStores(x)
   northGateStores = await getStores.northGateStores(x)
-  print(northGateStores)
 
   # return walmartStores
   storesData = []
-  stores = {
-   "k" : list(walmartStores.keys()),
-   "v" : list(walmartStores.values())
-  }
+  # stores = {
+  #  "k" : list(walmartStores.keys()),
+  #  "v" : list(walmartStores.values())
+  # }
   storesData.append(stores)
   #time.sleep(1)
   return render_template('index.html', data = storesData,)

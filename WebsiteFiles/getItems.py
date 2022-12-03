@@ -156,10 +156,6 @@ class getItems():
 
                 except:
                     continue
-        
-
-            
-
             # print(itemID)
             # for i in itemInfo:
                 # print(i,'\n',itemInfo[i],'\n\n')
@@ -195,23 +191,23 @@ class getItems():
             except:
                 continue
 
-        # adding walmart items to the array
-        for k,v in targetItems[1].items():
-            entry = v
+        # # adding walmart items to the array
+        # for k,v in targetItems[1].items():
+        #     entry = v
 
-            try:
+        #     try:
 
-                imageURL = entry['imageURL']['primary_image_url']
-                entry['imageURL'] = imageURL
+        #         imageURL = entry['imageURL']['primary_image_url']
+        #         entry['imageURL'] = imageURL
 
-                description = '<li>' + '</li><li>'.join(entry['description']) + '</li>'
-                entry['description'] = description
+        #         description = '<li>' + '</li><li>'.join(entry['description']) + '</li>'
+        #         entry['description'] = description
 
-                entry['name'] = k
-                entry['store'] = 'target'
-                allItems.append(entry) 
-            except:
-                continue
+        #         entry['name'] = k
+        #         entry['store'] = 'target'
+        #         allItems.append(entry) 
+        #     except:
+        #         continue
 
 
         # adding walmart items to the array
@@ -253,7 +249,7 @@ def getWalmartPrices(walmartItems):
             return 0
 
 
-getitem = getItems()
+# getitem = getItems()
 #walmartItems = getitem.walmartItems('broccoli', '3133')
 #targetItems = getitem.targetItems('juice', '1028')
 #northgateItems = getitem.northgateItems('broccoli','6097')
