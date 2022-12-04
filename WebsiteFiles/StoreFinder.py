@@ -96,40 +96,42 @@ class getStores():
       print(i,'\n',closestStoresInfo[i],'\n\n') #EX: To find the second closest store do closestStoresInfo[closestStoresID['1']]  
     return closestStoresInfo  #Return all the closest walmart stores found
 
-  async def vonsStores(zipCode):
+  async def wholeFoodsStores(zipCode):
         radius = 5
-        url = "https://www.vons.com/abs/pub/xapi/storeresolver/v2/all?zipcode="+ str(zipCode) + "&radius=" + str(radius) + "&excludeBanners=none"
-        payload={}
+        url = "https://www.wholefoodsmarket.com/stores/search"
+        payload = "{\"query\":[\"AYAAFGY1yRfvsws2NnBuLcq3QA0ALgACABFvcmlnaW5hbEZpZWxkTmFtZQAFcXVlcnkADWZyYWdtZW50SW5kZXgAATAAAQAGc2k6bWQ1ACBjNjEyNzMwZmM4NzA0NjYyMThkZjRiMjc1YWFlYTJiNQEAmo8aIjt/bsaam+DKRgy4uY7K8u4DOvo/3vhzOuait6pP32qJ8Z48fXq4NoYX8LnqfBn+yQMfLQCTHW/Jmw4Si15X1Kntt10JUhXABYQdboRc77ATz8ipslDCeeQSk+QKTcfO65zZwJWkD0TUm9aDRwjIJ2qYAbz2P4ZuB/fYzzWog/LiELvAkRlllQ7SF5wHfYxJOS/B+mcyTMWzeJbw7sN42lelKoD0h4BLkTxpLZqy5oBP5DRkGNvuAylqz5rJFK54fFXSMswoTSkMWU9KrhJwoCSqpZMtT3Rj4lpD12doNL2IaftBydP0LDGxpKZE4kRjzbLAX29dUsAqDPLMIgIAAAAADAAAACYAAAAAAAAAAAAAAABhTYmK1niUoCluBLTDKydK/////wAAAAEAAAAAAAAAAAAAAAEAAAAlo1mBVW143r36v3LKu+DsoxkAtb8puWV5uBwnCeEb1rjU60+QdT3U2eHCoaTB9TMmR0RDAbk=\"]}"
         headers = {
-          'authority': 'www.vons.com',
-          'accept': 'application/json, text/plain, */*',
-          'accept-language': 'en-US,en;q=0.9',
-          'cookie': 'visid_incap_1610354=gmNJdlQBQ0OhZxng2MccXa7QhmMAAAAAQUIPAAAAAABucesTyT6emZ7UP2BuqUKK; _gcl_au=1.1.438507303.1669779631; _cs_c=0; _fbp=fb.1.1669779637238.933985435; _gid=GA1.2.1259452116.1670093550; _ga=GA1.1.1728954737.1669779631; _ga_HY8ERR1182=GS1.1.1670095827.3.0.1670095827.0.0.0; nlbi_1610354=gpT2SzzoeHvX3LA5wfGJNgAAAACLaJI85394+hS38zGLT0aX; incap_ses_32_1610354=YF92YDdpVnuuGVOf969xADs9jGMAAAAAXhyus5BdxT+YfOL5Pm9SZw==; AMCVS_A7BF3BC75245ADF20A490D4D%40AdobeOrg=1; AMCV_A7BF3BC75245ADF20A490D4D%40AdobeOrg=-1124106680%7CMCIDTS%7C19330%7CMCMID%7C77048439235806509373467382530605963621%7CMCAAMLH-1670739911%7C9%7CMCAAMB-1670739911%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1670142311s%7CNONE%7CvVersion%7C5.2.0; ECommBanner=vons; abs_gsession=%7B%22info%22%3A%7B%22COMMON%22%3A%7B%22Selection%22%3A%22default%22%2C%22preference%22%3A%22J4U%22%2C%22userType%22%3A%22G%22%2C%22zipcode%22%3A%2292110%22%2C%22banner%22%3A%22vons%22%7D%2C%22J4U%22%3A%7B%22zipcode%22%3A%2292110%22%2C%22storeId%22%3A%222053%22%7D%2C%22SHOP%22%3A%7B%22zipcode%22%3A%2292110%22%2C%22storeId%22%3A%222053%22%7D%7D%7D; abs_previouslogin=%7B%22info%22%3A%7B%22COMMON%22%3A%7B%22Selection%22%3A%22default%22%2C%22preference%22%3A%22J4U%22%2C%22userType%22%3A%22G%22%2C%22zipcode%22%3A%2292110%22%2C%22banner%22%3A%22vons%22%7D%2C%22J4U%22%3A%7B%22zipcode%22%3A%2292110%22%2C%22storeId%22%3A%222053%22%7D%2C%22SHOP%22%3A%7B%22zipcode%22%3A%2292110%22%2C%22storeId%22%3A%222053%22%7D%7D%7D; ECommSignInCount=0; at_check=true; SAFEWAY_MODAL_LINK=; s_vncm=1672559999108%26vn%3D2; s_ivc=true; gpv_Page=vons%3Aloyalty%3Ahome; _gcl_aw=GCL.1670135113.CjwKCAiAhKycBhAQEiwAgf19eqTy2FySvLdRpQ0VR9XO6clu4gaC3DiAFv3Bl0c3ozW7wRIbzQOqrRoC5TIQAvD_BwE; _gcl_dc=GCL.1670135113.CjwKCAiAhKycBhAQEiwAgf19eqTy2FySvLdRpQ0VR9XO6clu4gaC3DiAFv3Bl0c3ozW7wRIbzQOqrRoC5TIQAvD_BwE; s_cc=true; reese84=3:X94Ph7iZuUpmnbuybMZUmg==:UN/WOPgNmIqYIGicvpZyhU7sjEGc8hG4JHadDJdujQ/JwBrVAqspbhx60VhCsOMjBdDPjHnzPrCkcMtl2kX3AO3tcgl/oHFNcnScx4wOeMtQJ8iSXhJ7bc9KqXNTo4MvKzHpkHYWonTkNC0GsNOzAAi4erVL9VSZwE7RhhjTcbzuOLEujGnxE8myDR8IjM1PlKL0OltY8QoZqhZRHi4nXBC62FG3Vyx+RNrr8HrjfGQDsWKRfx4/znF2ydWzzdY3OuNVTYBET8lHJhACTSCY3yRzxTbSZsNrJQEdAzYBmis4Yl0bDFARIOY7Y78iiJWkr8F7lCemiDA4vUmwbLCsiRVcWUnhOtuhTIqr+jf0AGqKehrXLqhYeHxiYYcX4Cuja9nXLb+zQfXYG6m0nRKnF3o+AR2f+NWUV9/WSS6XbOcYY/PO6BKEaDDCVIi4XCUHbVsMEHUU8eprEiRVp95wiLXEuzga2SylZL7wHc0TSTVgkW19lXnkZMD2e4yI/v+T06QgUL/5ZlVIgnRkIG4SjA==:7iH4rcrsXlJaGMbSJ6w+8N4/uMsntgMzQV+D8Xriyic=; _pin_unauth=dWlkPVpXWXpZamM1WWpFdE1UQTFNUzAwTkRneExXSTVZbUl0TWprNFpqaGhNams0WkRoag; aam_uuid=69382712602489198374231752252597179329; SWY_SYND_USER_INFO=%7B%22storeAddress%22%3A%22%22%2C%22storeZip%22%3A%2292110%22%2C%22storeId%22%3A%222053%22%2C%22preference%22%3A%22J4U%22%7D; SWY_SHARED_SESSION_INFO=%7B%22info%22%3A%7B%22COMMON%22%3A%7B%22userType%22%3A%22G%22%2C%22zipcode%22%3A%2292110%22%2C%22banner%22%3A%22vons%22%2C%22preference%22%3A%22J4U%22%2C%22Selection%22%3A%22default%22%2C%22userData%22%3A%7B%7D%7D%2C%22J4U%22%3A%7B%22storeId%22%3A%222053%22%2C%22zipcode%22%3A%2292110%22%2C%22userData%22%3A%7B%7D%7D%2C%22SHOP%22%3A%7B%22storeId%22%3A%222053%22%2C%22zipcode%22%3A%2292110%22%2C%22userData%22%3A%7B%7D%7D%7D%7D; _cs_cvars=%7B%221%22%3A%5B%22Page%20Name%22%2C%22vons%3Aloyalty%3Ahome%22%5D%2C%222%22%3A%5B%22Logged%20In%20State%22%2C%22guest%22%5D%2C%223%22%3A%5B%22Delivery%20Status%22%2C%22instore%22%5D%2C%224%22%3A%5B%22Last%20visit%22%2C%222%22%5D%2C%225%22%3A%5B%22Page%20Name%202%22%2C%22home%22%5D%2C%226%22%3A%5B%22Page%20Sub-Category%201%22%2C%22home%22%5D%2C%229%22%3A%5B%22Club%20Card%20Number%22%2C%22ID%20not%20found%22%5D%2C%2210%22%3A%5B%22House%20Hold%20Id%22%2C%22ID%20not%20found%22%5D%2C%2212%22%3A%5B%22Shop%20Store%20ID%22%2C%222053%22%5D%7D; mbox=PC#0ecb3757bdf546f086415fb16ee35c13.35_0#1733379962|session#503edc2dfd2c45efb81b3d17ff7b55f6#1670137022; s_nr30=1670135162137-Repeat; _br_uid_2=uid%3D5007774504917%3Av%3D12.0%3Ats%3D1669779637127%3Ahc%3D7; _uetsid=68b03d10739c11ed8b8be7dab80e9eb0; _uetvid=68b06610739c11edaf7373c81172337e; _ga_9ECKX3GB5E=GS1.1.1670135112.1.1.1670135162.0.0.0; nlbi_1610354_2147483392=98l+Dv37Fzc0+YgYwfGJNgAAAADpne0FMpDZICRc3U1HJo22; s_sq=%5B%5BB%5D%5D; _cs_id=c4a88f25-0606-a1d0-b392-9726ea54ba80.1669779631.4.1670135214.1670135112.1.1703943631397; _cs_s=7.5.0.1670137014364; incap_ses_32_1610354=ZLRuWJxEniSTJKif969xAD7ujGMAAAAApJ7cXXr7ISyo9h1Q9NXMnw==; nlbi_1610354=n6zyeJ05aETOTPjOwfGJNgAAAADf/Mk/uxkQIfnuZ9JX2Y1H',
-          'ocp-apim-subscription-key': '7bad9afbb87043b28519c4443106db06',
-          'referer': 'https://www.vons.com/',
+          'Accept': '*/*',
+          'Accept-Language': 'en-US,en;q=0.9',
+          'Cache-Control': 'max-age=0',
+          'Connection': 'keep-alive',
+          'Content-Type': 'application/json; charset=utf-8',
+          'Cookie': 'session-id=132-4346531-8073958; session-id-time=2082787201l; _gcl_au=1.1.1744792810.1669778772; _ga=GA1.2.257551033.1669778772; csm-sid=089-5915654-4698254; ubid-main=135-2025329-3600841; _gac_UA-190385-1=1.1669779236.Cj0KCQiA-JacBhC0ARIsAIxybyOZn9yHWkRTxVpSgc5gqoyj1uE7_X8AgGx14l4SiQVUoCUl5-djeHgaAo0GEALw_wcB; session-token=1zlP3BTrOuYm+op6+PWKKc/Y7/yfynBPYlsDZL3tE6HZ4c2GK64xyoc96gnjGriUsh8hQhhEFfYfpfDFpweu5SEcvtvxpl9iY8J9zVWzkGarP+O18ZuxrS14rJK/Ry3P0d8pA21zUWu8phrgIfMsTgDXE7gbAV3U/AljhLNgFFn8FCxXyzTyC0Z+AVY/JI0swzBzTPAUOHiOH5T1ooMyJA==; _gid=GA1.2.1114886147.1670184639; _gat_UA-190385-1=1',
+          'Origin': 'https://www.wholefoodsmarket.com',
+          'Referer': 'https://www.wholefoodsmarket.com/stores',
+          'Sec-Fetch-Dest': 'empty',
+          'Sec-Fetch-Mode': 'cors',
+          'Sec-Fetch-Site': 'same-origin',
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
+          'anti-csrftoken-a2z': 'g7vHwtinRKDEEjRvTz8fqIDL8MSmRx7zyxxXKUtVfjKmAAAAAQAAAABjjQGncmF3AAAAACr/Igfie4qiUf9rqj+gAw==',
           'sec-ch-ua': '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
           'sec-ch-ua-mobile': '?0',
-          'sec-ch-ua-platform': '"Windows"',
-          'sec-fetch-dest': 'empty',
-          'sec-fetch-mode': 'cors',
-          'sec-fetch-site': 'same-origin',
-          'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
+          'sec-ch-ua-platform': '"Windows"'
         }
 
-        response = requests.request("GET", url, headers=headers, data=payload)
+        response = requests.request("POST", url, headers=headers, data=payload)
         #Set data to dictionary format
         stores = json.loads(response.text)
-     
+
         #Check if there are any stores that exist
-        if(stores["instore"]["count"] == 0):
+        if(stores == 0):
           return 0
 
         closestStoresID = {}
         closestStoresInfo = {}
-        for num,location in enumerate(stores['instore']['stores']):
-          closestStoresID[num] = location['locationId']
-          closestStoresInfo[location['locationId']] = location['address']
-          
+        for num,location in enumerate(stores):
+          closestStoresID[num] = location['storeId']
+          closestStoresInfo[location['storeId']] = location['location']['address']
         return closestStoresInfo  #Return all the closest Vons stores found
 
   async def northGateStores(zipCode):
@@ -187,7 +189,7 @@ async def stores(x):
   x = json.loads(x)
 
   walmartStores =  await getStores.walmartStores(x)
-  vonsStores = await getStores.vonsStores(x)
+  wholeFoodsStores = await getStores.wholeFoodsStores(x)
   northGateStores = await getStores.northGateStores(x)
 
   # return walmartStores
