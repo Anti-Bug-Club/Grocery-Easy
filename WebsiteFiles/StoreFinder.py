@@ -129,8 +129,7 @@ class getStores():
         for num,location in enumerate(stores['instore']['stores']):
           closestStoresID[num] = location['locationId']
           closestStoresInfo[location['locationId']] = location['address']
-
-        print(closestStoresInfo)
+          
         return closestStoresInfo  #Return all the closest Vons stores found
 
   async def northGateStores(zipCode):
