@@ -65,7 +65,7 @@ class getItems():
             items = [itemID,itemInfo]
             return items
         except:
-            return 'none'
+            return 0
 
 
     def wholefoodsItems(self,itemSearch,storeID): #add '+' between words with spaces for itemSearch
@@ -95,12 +95,12 @@ class getItems():
 
 
             #print(itemID)
-            for i in itemInfo:
-                print(i,'\n',itemInfo[i],'\n\n')
+            #for i in itemInfo:
+                #print(i,'\n',itemInfo[i],'\n\n')
             items = [itemID,itemInfo]
             return items
         except:
-            return 'none'
+            return 0
 
     def northgateItems(self,itemSearch,storeID): #add a '%20' as a space for itemSearch
         try:
@@ -147,12 +147,12 @@ class getItems():
             items = [itemID,itemInfo]
             return items
         except:
-            return 'none'
+            return 0
 
     def getAllItemsWithStores(self, search):
         getitem = getItems()
         walmartItems = getitem.walmartItems(search, '3133')
-        wholefoodsItems = getitem.wholefoodsItems(search, '10594')
+        #wholefoodsItems = getitem.wholefoodsItems(search, '10594')
         northgateItems = getitem.northgateItems(search,'6097')
 
         allItems = []
@@ -242,7 +242,7 @@ def getWalmartPrices(walmartItems):
 # cheapestWalmartPrice = getWalmartPrices(walmartItems)
 # print("Cheapest price found", cheapestWalmartPrice) 
 
-# allitems = getitem.getAllItemsWithStores('broccoli')
+#allitems = getitem.getAllItemsWithStores('broccoli')
 
 # print('\n\n================================')
 # print(*allitems, sep="\n\n")
