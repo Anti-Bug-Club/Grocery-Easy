@@ -65,29 +65,15 @@ class getItems():
             items = [itemID,itemInfo]
             return items
         except:
-            return 0
+            return 'none'
 
 
-    def targetItems(self,itemSearch,storeID): #add '+' between words with spaces for itemSearch
+    def wholefoodsItems(self,itemSearch,storeID): #add '+' between words with spaces for itemSearch
         try:
-            url = f"https://redsky.target.com/redsky_aggregations/v1/web/plp_search_v2?key=9f36aeafbe60771e321a7cc95a78140772ab3e96&channel=WEB&count=24&default_purchasability_filter=true&include_sponsored=true&keyword={itemSearch}&offset=0&page=%2Fs%2F{itemSearch}&platform=desktop&pricing_store_id={storeID}&scheduled_delivery_store_id=2147&store_ids={storeID}%2C2147%2C1033%2C222%2C767&useragent=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_15_7%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F107.0.0.0+Safari%2F537.36&visitor_id=0183A19D5C1D0201BE60A72076D3873E&zip=91792"
+            url = f"https://www.wholefoodsmarket.com/_next/data/gA_0Z8pXk88CJBarkJ90-/search.json?text={itemSearch}&store={storeID}"
 
             payload={}
-            headers = {
-            'authority': 'redsky.target.com',
-            'accept': 'application/json',
-            'accept-language': 'en-US,en;q=0.9',
-            'cookie': 'visitorId=0183A19D5C1D0201BE60A72076D3873E; UserLocation=91792|34.020|-117.900|CA|US; crl8.fpcuid=1e3c6df0-d017-4c02-98b8-3171eed4203c; fiatsCookie=DSI_1028|DSN_West%20Covina|DSZ_91791; TealeafAkaSid=TsftBg2-nhHB7Oq9zQ2a-uOO6FTqItvY; sapphire=1; ci_pixmgr=other; accessToken=eyJraWQiOiJlYXMyIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI5NDkzMDRiNC1jOGQ1LTQyY2YtOWUwMC01NzQ5OTU5OTRiMzIiLCJpc3MiOiJNSTYiLCJleHAiOjE2NzAwNTAxMDcsImlhdCI6MTY2OTk2MzcwNywianRpIjoiVEdULmI4ZjA4ZmQxOGZkZjRlY2JiYTA0YTEyNmU1YTY3NGMxLWwiLCJza3kiOiJlYXMyIiwic3V0IjoiRyIsImRpZCI6ImNhYWJhYTlkNmRhY2Q0MTkyZTZmMzRjN2FhMWNiMjNhZTY3ZmE2ZjhhYjc5MzcxYWUyNGQwYjk4YWVhMTkyMmEiLCJzY28iOiJlY29tLm5vbmUsb3BlbmlkIiwiY2xpIjoiZWNvbS13ZWItMS4wLjAiLCJhc2wiOiJMIn0.mJh-_L0GsYVadz7q0ja8OFiv4RAfAPCVAYCKzEJsnOVZxU7LJ76tt5eEnyQs_CV3VRwoVC0ooliwD8pS6nvpxS97ZPjmT44iNXbQlFIuKcgSTVybN0bQs3Y1J5mGgN8tLntZQtoZ9QPfgnHLeKpLvumJUTWkqrJO-XLN1y7jN8GK4M-stGE0MXVD1HSPhycvk_qMoGRnxbGTjPL1NxF7AGCxQ1AFbZHoY4MX2PNo8SNVwUB7FYB_34obkpA_hpBqUAP9xy9jES9_al5UYFJQf_hXWWxQbcEjsGRLEqqUJF0h47ECvD3r59gKdRe8TJjsFVkbSq4fKd-hXB384A_afw; idToken=eyJhbGciOiJub25lIn0.eyJzdWIiOiI5NDkzMDRiNC1jOGQ1LTQyY2YtOWUwMC01NzQ5OTU5OTRiMzIiLCJpc3MiOiJNSTYiLCJleHAiOjE2NzAwNTAxMDcsImlhdCI6MTY2OTk2MzcwNywiYXNzIjoiTCIsInN1dCI6IkciLCJjbGkiOiJlY29tLXdlYi0xLjAuMCIsInBybyI6eyJmbiI6bnVsbCwiZW0iOm51bGwsInBoIjpmYWxzZSwibGVkIjpudWxsLCJsdHkiOmZhbHNlfX0.; refreshToken=kmgHOb2lcho9andTwebFGK0wQuh0Sp78nh_0sZs2WpI6zc1_a-F5p6vOoMqHpnrT56nQHHM-LfNDHDc_CegLhw; _mitata=ZDk5MzliYWQ0Y2E5ZDYzYWYyNGNiOWIzOWViMDZhOGE2OTliODU0MjZiMWUwZWJlNDcxODcyM2EyMmQ4NDkwNA==_/@#/1670035387_/@#/cVhYknpFixKwW50E_/@#/OGZkZjBjMjc4MzczNjE3ZGFhM2FiNGQyNjY0MDRkNmU1MDYyMDY4Yzk2OTY2ZWUzMzY4YTFjOTk2NjRkYWVjMg==_/@#/000; ffsession={%22sessionHash%22:%221413e57a50e6261669673591374%22%2C%22prevPageName%22:%22search:%20search%20results%22%2C%22prevPageType%22:%22search:%20search%20results%22%2C%22prevPageUrl%22:%22https://www.target.com/s?searchTerm=dole+pineapple%22%2C%22sessionHit%22:12%2C%22prevSearchTerm%22:%22dole%20pineapple%22}',
-            'origin': 'https://www.target.com',
-            'referer': f'https://www.target.com/s?searchTerm={itemSearch}',
-            'sec-ch-ua': '"Google Chrome";v="107", "Chromium";v="107", "Not=A?Brand";v="24"',
-            'sec-ch-ua-mobile': '?0',
-            'sec-ch-ua-platform': '"macOS"',
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'same-site',
-            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'
-            }
+            headers = {}
 
             response = requests.request("GET", url, headers=headers, data=payload)
 
@@ -95,27 +81,26 @@ class getItems():
 
             itemID = {}
             itemInfo = {}
+
             
-            for num,i in enumerate(searchedItems['data']['search']['products']):
+            for num,i in enumerate(searchedItems['pageProps']['data']['results']):
                 try:
-                    itemID[num] = i['item']['product_description']['title']
-                    itemInfo[i['item']['product_description']['title']] = {'price' : i['price']['formatted_current_price'],
-                                                                            'rating' : i['ratings_and_reviews']['statistics']['rating']['average'],
-                                                                            'imageURL': i['item']['enrichment']['images'],
-                                                                            'buyURL': i['item']['enrichment']['buy_url'],
-                                                                            'description' : i['item']['product_description']['soft_bullets']['bullets'],
-                                                                            'allergies' : i['item']['product_description']['bullet_descriptions']}
+                    itemID[num] = i['name']
+                    itemInfo[i['name']] = {'price' : i['regularPrice'],
+                                            'imageURL': i['imageThumbnail'],
+                                            'brand': i['brand'],
+                                            'description' : i['slug']}
                 except:
                     continue
 
 
-            # print(itemID)
-            # for i in itemInfo:
-                # print(i,'\n',itemInfo[i],'\n\n')
+            #print(itemID)
+            #for i in itemInfo:
+                #print(i,'\n',itemInfo[i],'\n\n')
             items = [itemID,itemInfo]
             return items
         except:
-            return 0
+            return 'none'
 
     def northgateItems(self,itemSearch,storeID): #add a '%20' as a space for itemSearch
         try:
@@ -162,12 +147,12 @@ class getItems():
             items = [itemID,itemInfo]
             return items
         except:
-            return 0
+            return 'none'
 
     def getAllItemsWithStores(self, search):
         getitem = getItems()
         walmartItems = getitem.walmartItems(search, '3133')
-        targetItems = getitem.targetItems(search, '1028')
+        wholefoodsItems = getitem.wholefoodsItems(search, '10594')
         northgateItems = getitem.northgateItems(search,'6097')
 
         allItems = []
@@ -251,7 +236,7 @@ def getWalmartPrices(walmartItems):
 
 # getitem = getItems()
 #walmartItems = getitem.walmartItems('broccoli', '3133')
-#targetItems = getitem.targetItems('juice', '1028')
+#wholefoodsItems = getitem.wholefoodsItems('juice', '10594')
 #northgateItems = getitem.northgateItems('broccoli','6097')
 
 # cheapestWalmartPrice = getWalmartPrices(walmartItems)
