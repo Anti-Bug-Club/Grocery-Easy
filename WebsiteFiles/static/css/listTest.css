@@ -25,16 +25,14 @@ margin-right: 5%;
   content: "";
   clear: both; 
   display: table;
-
-
-  overflow:auto ;
 }
 
 .row .column img {
   float:left;
-   height: 30px;
-   width: 30px;
+   height: 50px;
+   width: 50px;
    margin-right:5%;
+
 }
   /* contain for each item list */
   .items-list {
@@ -45,17 +43,16 @@ margin-right: 5%;
 
   .items-list .Item-name {
     padding-top: 5px;
+    margin-top: 5px;
     /* padding-bottom:5px; */
     font-weight: bold;
-    font-size: 20x;
+    font-size: 17px;
     padding: 10px;
   }
 
   .items-list .Description {
-   
-
     padding: 5px;
-    font-size: 40x;
+    font-size: 15px;
     overflow: auto;
   }
 
@@ -63,7 +60,7 @@ margin-right: 5%;
     padding: 5px;
     content: " Description: ";
     font-weight: bold;
-    font-size: 35x;
+    font-size: 15px;
     overflow:auto ;
     }
 
