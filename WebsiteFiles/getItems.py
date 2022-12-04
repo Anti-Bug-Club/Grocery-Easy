@@ -60,8 +60,8 @@ class getItems():
                     continue
 
             # print(itemID)
-            # for i in itemInfo:
-                # print(i,'\n',itemInfo[i],'\n\n')
+            #for i in itemInfo:
+                #print(i,'\n',itemInfo[i],'\n\n')
             items = [itemID,itemInfo]
             return items
         except:
@@ -86,7 +86,7 @@ class getItems():
             for num,i in enumerate(searchedItems['pageProps']['data']['results']):
                 try:
                     itemID[num] = i['name']
-                    itemInfo[i['name']] = {'price' : i['regularPrice'],
+                    itemInfo[i['name']] = {'price' : '$' + str(i['regularPrice']),
                                             'imageURL': i['imageThumbnail'],
                                             'brand': i['brand'],
                                             'description' : i['slug']}
@@ -95,8 +95,8 @@ class getItems():
 
 
             #print(itemID)
-            #for i in itemInfo:
-                #print(i,'\n',itemInfo[i],'\n\n')
+            for i in itemInfo:
+                print(i,'\n',itemInfo[i],'\n\n')
             items = [itemID,itemInfo]
             return items
         except:
@@ -234,7 +234,7 @@ def getWalmartPrices(walmartItems):
             return 0
 
 
-# getitem = getItems()
+#getitem = getItems()
 #walmartItems = getitem.walmartItems('broccoli', '3133')
 #wholefoodsItems = getitem.wholefoodsItems('juice', '10594')
 #northgateItems = getitem.northgateItems('broccoli','6097')
