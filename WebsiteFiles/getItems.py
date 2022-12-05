@@ -135,6 +135,7 @@ class getItems():
             for num,i in enumerate(searchedItems['items']):
                 try:
                     itemID[num] = i['name']
+                    i['price'] = i['price'].replace(' for ', '')
                     itemInfo[i['name']] = {'price' : i['price'],
                                             'buyURL': i['canonical_url']
                     }
@@ -164,6 +165,8 @@ class getItems():
                 # resolving to the common format
                 price = entry['price']['priceString']
                 entry['price'] = price
+                
+                
                 
             
                 imageURL = entry['imageURL']['thumbnailUrl']
@@ -201,6 +204,7 @@ class getItems():
 
             try: 
                 entry['name'] = k
+                print(k)
 
                 entry['store'] = 'northgate'
                 allItems.append(entry) 
@@ -209,6 +213,7 @@ class getItems():
 
         # sorting the items
         allItems.sort(key=lambda x: eval(x['price'].replace('$', '')) )
+        
 
         return allItems
 
