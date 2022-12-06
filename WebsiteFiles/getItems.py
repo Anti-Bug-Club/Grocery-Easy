@@ -153,7 +153,7 @@ class getItems():
     def getAllItemsWithStores(self, search):
         getitem = getItems()
         walmartItems = getitem.walmartItems(search, '3133')
-        #wholefoodsItems = getitem.wholefoodsItems(search, '10594')
+        wholefoodsItems = getitem.wholefoodsItems(search, '10594')
         northgateItems = getitem.northgateItems(search,'6097')
 
         allItems = []
@@ -199,6 +199,23 @@ class getItems():
 
 
         # adding walmart items to the array
+        for k,v in wholefoodsItems[1].items():
+            entry = v
+
+            try: 
+                entry['name'] = k
+                print(k)
+                entry['price'] = v['price']
+                print(v['price'])
+                print(v['imageURL'])
+                entry['store'] = 'wholefood'
+                entry['description'] = v['description']
+                entry['imageURL'] = v['imageURL']
+                #entry['store'] = 'northgate'
+                allItems.append(entry) 
+            except:
+                continue
+
         for k,v in northgateItems[1].items():
             entry = v
 
