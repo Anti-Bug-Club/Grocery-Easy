@@ -1852,6 +1852,7 @@ h3.w3ls-title.w3ls-title1 {
 .services-grids h4,.about-text-grids h4{
     font-size: 1.2em;
     margin: 1em 0 .5em;
+    margin-bottom: 20px;
     color: #000;
     line-height: 1.5em;
     position: relative;
@@ -1883,7 +1884,10 @@ h3.w3ls-title.w3ls-title1 {
 }
 .ftr-top-left.about-text-grids i.fa {
     color: #999;
-    margin-top: 1em;
+    margin-top: 20px;
+}
+.col-md-3.ftr-top-left.about-text-grids {
+    margin-top: 50px;
 }
 .history h3.w3ls-title {
     font-size: 1.8em;
