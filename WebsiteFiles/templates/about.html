@@ -133,9 +133,6 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
-	<script>
-		$('#myModal88').modal('show');
-	</script> 
 	<ul class = "list-parent">	
 		{% for item in items%}
 		<li class="items-list">
@@ -164,6 +161,11 @@ $(document).ready(function() {
 					{% elif item['store'] == 'target'%}
 					<div class="column">
 					  <img src="https://e7.pngegg.com/pngimages/156/169/png-clipart-target-logo-target-corporation-logo-target-icon-logo-text-retail.png" alt="logo" width = "100" height = "auto">
+					  <figcaption>{{item['price']}}</figcaption> <!--price for dif store-->
+					</div>
+					{% elif item['store'] == 'wholefood'%}
+					<div class="column">
+					  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Whole_Foods_Market_201x_logo.svg" alt="logo" width = "100" height = "auto">
 					  <figcaption>{{item['price']}}</figcaption> <!--price for dif store-->
 					</div>
 					{% else %}
